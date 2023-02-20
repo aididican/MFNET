@@ -67,7 +67,7 @@ You will now submit a JCL in: $hostname
 
 if ($selection4 -match "ACTIVE")
 {
-Active-FTP 
+Active-FTP > $null
 }
 elseif ($selection4 -match "PASSIVE")
 {
