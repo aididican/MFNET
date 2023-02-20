@@ -1,4 +1,4 @@
-﻿
+$PSDefaultParameterValues = @{ 'out-file:encoding' = 'ascii' }
 
 $pwd = ([Environment]::GetFolderPath("Desktop") + "\FTPtoJES")
 
@@ -32,7 +32,7 @@ notepad.exe $pwd\jclsteps.txt
 
 cmd /c 'pause'
 
-gc $pwd\jobcard.txt,$pwd\jclsteps.txt > $pwd\jcltosub.txt
+gc $pwd\jobcard.txt,$pwd\jclsteps.txt | out-file -FilePath ($pwd + "\jcltosub.txt") 
 
 $hostname = Read-Host -Prompt 'Input your hostname'
 
@@ -58,31 +58,12 @@ Write-Host ", enter " -NoNewline
 Write-Host "FTPS" -ForegroundColor YELLOW -NoNewline
 Write-Host " - This option only supports PASSIVE FTP."
 
-$selection4 = Read-Host -Prompt "Please enter your selection (ACTIVE, PASSIVE, FTPS)"
-$selection4 = $selection4.ToUpper()
+$selection1 = Read-Host -Prompt "Please enter your selection (ACTIVE, PASSIVE, FTPS)"
+$selection1 = $selection1.ToUpper()
 
 Write-Host "
 You will now submit a JCL in: $hostname
 "
-
-if ($selection4 -match "ACTIVE")
-{
-Active-FTP > $null
-}
-elseif ($selection4 -match "PASSIVE")
-{
-Passive-FTP > $null
-}
-elseif ($selection4 -match "FTPS")
-{
-Passive-FTPS > $null
-}
-
-}
-
-#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-Function Active-FTP ($userid) {
 
 $userid = Read-Host -Prompt "Please enter your USERID"
 
@@ -105,6 +86,25 @@ while ($cpassword1.length -ne 8)
 }
 $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($cpassword1)
 $cpassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
+
+if ($selection1 -match "ACTIVE")
+{
+Active-FTP ($userid) > $null
+}
+elseif ($selection1 -match "PASSIVE")
+{
+Passive-FTP ($userid) > $null
+}
+elseif ($selection1 -match "FTPS")
+{
+Passive-FTPS ($userid) > $null
+}
+
+}
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Function Active-FTP ($userid) {
 
 "open $hostname
 user " + "$userid $cpassword
@@ -122,28 +122,6 @@ exit
 
 Function Passive-FTP ($userid) {
 
-$userid = Read-Host -Prompt "Please enter your USERID"
-
-Write-Host "
-The Password rules for the Mainframe only allow 8-character-long passwords.
-
-The password can only be entered in Alphanumeric characters (letters and numbers).
-
-Please remain compliant with our policy. Thank you!
-"
-Write-Host "Please Input your" -NoNewline
-Write-Host " CURRENT PASSWORD " -ForegroundColor RED -NoNewline
-$cpassword1 = Read-Host -AsSecureString 
-while ($cpassword1.length -ne 8) 
-{
-    Write-Output "Make sure you spelled your current password correctly."
-    Write-Host "Please Input your" -NoNewline
-    Write-Host " CURRENT PASSWORD " -ForegroundColor RED -NoNewline
-    $cpassword1 = Read-Host -AsSecureString
-}
-$bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($cpassword1)
-$cpassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
-
     & 'C:\Program Files (x86)\WinSCP\WinSCP.com' `
       /log="$pwd\WinSCP.log" /ini=nul `
       /command `
@@ -151,7 +129,7 @@ $cpassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
         "call site file=jes NOJESGETBYDSN" `
         "ascii" `
         "lcd $pwd" `
-        "put ftptosub.txt" `
+        "put jcltosub.txt" `
         "exit"
     }
 
@@ -160,28 +138,6 @@ $cpassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
 
 Function Passive-FTPS ($userid) {
 
-$userid = Read-Host -Prompt "Please enter your USERID"
-
-Write-Host "
-The Password rules for the Mainframe only allow 8-character-long passwords.
-
-The password can only be entered in Alphanumeric characters (letters and numbers).
-
-Please remain compliant with our policy. Thank you!
-"
-Write-Host "Please Input your" -NoNewline
-Write-Host " CURRENT PASSWORD " -ForegroundColor RED -NoNewline
-$cpassword1 = Read-Host -AsSecureString 
-while ($cpassword1.length -ne 8) 
-{
-    Write-Output "Make sure you spelled your current password correctly."
-    Write-Host "Please Input your" -NoNewline
-    Write-Host " CURRENT PASSWORD " -ForegroundColor RED -NoNewline
-    $cpassword1 = Read-Host -AsSecureString
-}
-$bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($cpassword1)
-$cpassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
-
     & 'C:\Program Files (x86)\WinSCP\WinSCP.com' `
       /log="$pwd\WinSCP.log" /ini=nul `
       /command `
@@ -189,7 +145,7 @@ $cpassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
         "call site file=jes NOJESGETBYDSN" `
         "ascii" `
         "lcd $pwd" `
-        "put ftptosub.txt" `
+        "put jcltosub.txt" `
         "exit"
         "exit"
     }
