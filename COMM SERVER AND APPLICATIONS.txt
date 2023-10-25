@@ -1,0 +1,589 @@
+DISPLAY Commands:
+https://www.ibm.com/docs/en/zos/2.2.0?topic=reference-display-command
+
+--------------------------------------------
+
+TPX:
+
+https://techdocs.broadcom.com/us/en/ca-mainframe-software/traditional-management/ca-tpx-session-management/5-4/programming/tpx-programming/tpx-special-features-and-customization-tasks/customize-the-aptpx-member.html
+
+Description of Statements
+The following list explains the types of statements that are shown in the previous example.
+	*TPX,PRINT=
+	Tells the software whether to list the APTPX member in printouts of your log. Any log you send to 
+	Broadcom
+	 for diagnostic purposes should include a copy of this member. The default value is TPX,PRINT=ON. If you specify PRINT=OFF, you will not get a copy of this member in your log.
+	*TPX,PRIMARY
+	Defines the network name of your system and identifies this system as a PLU that all physical terminals communicate with. The name that initially appears in column one of this statement is TPX. You use this name when you specify your LOGON APPLID commands in VTAM. For example, if the name you specify here is TPX, you would issue LOGON APPLID(TPX).
+	*TPX,SHARE
+	Identifies a virtual terminal that is used with applications that allow users to share a single virtual terminal. You can define only one shared virtual terminal.
+	*TPX,GROUP
+	Identifies virtual terminals that can be used with applications that allow a group of users to share a virtual terminal, providing each user is accessing a different application through the virtual terminal.
+	*TPX,UNIQUE
+	Identifies virtual terminals that can be used with applications that require each user to have a separate virtual terminal.
+	*TPX,APPLPPS
+	Identifies virtual printers used for Application Passthrough Printer Support. For more information about Application Passthrough Printer Support, see the Administrating section.
+	*TPX,USERPPS
+	Identifies virtual printers that are used for User Passthrough Printer Support. For more information about User Passthrough Printer Support, see the Administrating section.
+
+From <https://techdocs.broadcom.com/us/en/ca-mainframe-software/traditional-management/ca-tpx-session-management/5-4/programming/tpx-programming/tpx-special-features-and-customization-tasks/customize-the-aptpx-member.html> 
+
+TPX Change Menu keys:
+E
+I - Kill session
+
+TPX Activate Session:
+
+https://techdocs.broadcom.com/us/en/ca-mainframe-software/traditional-management/ca-tpx-session-management/5-4/administrating/general-administration/specifying-application-characteristics/add-or-modify-application-characteristics.html
+TPXOPER
+ACT applid
+
+
+TPX Command Summary:                                                    
+      /sessid                      - Switch/activate named session      
+      /A <ALL>                     - Activate implied or all sessions   
+      /B                           - Access the TPX Mailbox system      
+      /D sessid                    - Delete dynamically added session   
+      /E CMD=/CHR=/etc             - Temporary change to user profile   
+      /F                           - Return to LOGO                     
+      /G <all>                     - Activate sessions without ACL      
+      /H                           - Help                               
+      /I <all>                     - Inactivate implied or all sessions 
+      /J                           - Jump to next active session        
+      /K                           - Logoff from TPX                    
+      /L                           - Lock terminal                      
+      /N sessid                    - Start session in PASS mode         
+      /P sessid dest cls           - Capture session's screen image     
+      /Q sessid dest               - Send screen from sessid to userid  
+      /R                           - Reshow the last screen             
+      /S sessid aclpgm             - Start an ACL prgm for sessid       
+      /V sessid                    - Interrupt an ACL prgm for sessid   
+      /W                           - Display TPX selection menu         
+
+Virtual Terminal:
+https://knowledge.broadcom.com/external/article/51044/tpxoper-display-for-dynamically-added-vt.html
+https://knowledge.broadcom.com/external/article/19727/in-output-of-tpxoper-d-t-why-does-a-real.html
+
+https://techdocs.broadcom.com/us/en/ca-mainframe-software/traditional-management/ca-tpx-session-management/5-4/operating/operator-commands/activate-command.html
+
+--------------------------------------------
+
+https://techdocs.broadcom.com/us/en/ca-mainframe-software/traditional-management/ca-tpx-session-management/5-4/operating/operator-commands/display-command-for-virtual-terminals.html
+D VT,ALL
+D VT,INACT
+D VT,ACT
+
+https://techdocs.broadcom.com/us/en/ca-mainframe-software/traditional-management/ca-tpx-session-management/5-4/operating/operator-commands/modify-command.html
+MOD VT=x,AVAIL
+MOD VT=x,UNAVAIL
+
+--------------------------------------------
+
+D OMVS,O
+D OMVS,P
+D OMVS,L
+STOP OMVS processes from JES2:
+D OMVS,A=ALL
+From <https://www.ibm.com/docs/en/zos/2.4.0?topic=psufo-steps-shutting-down-zos-unix-using-f-omvsshutdown> 
+
+F OMVS,STOPPFS=NFS - HFS or ZFS
+From <https://www.ibm.com/docs/en/zos/2.4.0?topic=psufo-steps-shutting-down-zos-unix-using-f-omvsshutdown> 
+
+--------------------------------------------
+
+$djes2 - displays anything running on JES2
+F BPXOINIT,SHUTDOWN=FORKINIT - stops OMVS stuff like BPXAS
+F OMVS,RESTART
+F OMVS,SHUTDOWN
+$pjes2 - stops JES2
+
+--------------------------------------------
+
+D NET,STATIONS
+D NET,SESSIONS,SCOPE=ALL,LIST=ALL
+D NET,MAJNODES
+D NET,VTAMOPTS
+D NET,BFRUSE,BUFFER=SHORT
+D NET,CSM,OWNERID=ALL
+D NET,EE,LIST=DETAIL
+D NET,TGPS
+D NET,TRL
+
+--------------------------------------------
+
+F RESOLVER,DISPLAY
+F RESOLVER,REFRESH
+F RESOLVER,FLUSH,ALL
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=command-modify-resolver-address-space
+https://www.ibm.com/docs/en/zos-basic-skills?topic=information-resolver-address-space
+https://www.ibm.com/docs/en/zos-basic-skills?topic=information-type-application-mvs-zos-unix
+https://www.ibm.com/docs/en/zos/2.2.0?topic=environment-base-resolver-configuration-files
+GLOBALTCPIPDATA
+This statement is used to identify a specific resolver configuration file that contains the resolver configuration statements (NAMESERVER, HOSTNAME, and so on) that are to be applied globally to all IP applications.
+DEFAULTTCPIPDATA
+This statement is used to define a default resolver configuration file that is used as a last resort.
+https://www.ibm.com/docs/en/zos/2.3.0?topic=customization-configuring-profiletcpip
+
+
+The search order used to access the base resolver configuration file is as follows:
+
+GLOBALTCPIPDATA
+If defined, the resolver GLOBALTCPIPDATA setup statement value is used. For a description of the GLOBALTCPIPDATA statement, see The resolver and the global TCPIP.DATA file.
+
+The search continues for an additional configuration file. The search ends with the next file found.
+
+The value of the environment variable RESOLVER_CONFIG
+The value of the environment variable is used. This search will fail if the file does not exist or is allocated exclusively elsewhere.
+
+/etc/resolv.conf
+//SYSTCPD DD card
+The data set allocated to the ddname SYSTCPD is used. In the z/OS® UNIX environment, a child process does not have access to the SYSTCPD DD. This is because the SYSTCPD allocation is not inherited from the parent process over the fork() or exec function calls.
+
+userid.TCPIP.DATA
+userid is the user ID that is associated with the current security environment (address space or task/thread)
+
+SYS1.TCPPARMS(TCPDATA)
+DEFAULTTCPIPDATA
+If defined, the resolver DEFAULTTCPIPDATA setup statement value is used. For a description of the DEFAULTTCPIPDATA statement, see The resolver and the global TCPIP.DATA file.
+
+TCPIP.TCPIP.DATA
+
+https://www.ibm.com/docs/en/aix/7.2?topic=resolution-name
+https://www.ibm.com/docs/en/aix/7.2?topic=resolution-local-name-etchosts-tasks
+https://www.ibm.com/docs/en/aix/7.2?topic=resolution-configuring-host-use-name-server
+List All the Hosts	smit lshostent	Use the hostent command or view /etc/hosts
+Add a Host	smit mkhostent	Use the hostent command or edit /etc/hosts
+Change/Show Characteristics of a Host	smit chhostent	Use the hostent command or edit /etc/hosts
+Remove a Host	smit rmhostent	Use the hostent command or edit /etc/hosts
+
+TCPIP.DATA:
+https://www.ibm.com/docs/en/zos/2.2.0?topic=stack-tcpipdata-search-order
+https://www.ibm.com/docs/en/zos/2.2.0?topic=files-search-orders-used-in-zos-unix-environment#unixso
+RESOLVER SEARCH ORDER
+https://www.ibm.com/docs/en/zos/2.2.0?topic=resolver-configuration-files#resconf__ftypet
+
+--------------------------------------------
+
+HOSTS FILE
+MAKESITE
+MAKESITE HLQ=TCPIP,VOLSER=volser,UNIT=SYSDA
+https://www.ibm.com/docs/en/zos/2.1.0?topic=commands-makesite-command
+Format
+Read syntax diagramSkip visual syntax diagram
+>>-MAKESITE--+-----------+--,----------------------------------->
+             '-HLQ=--hlq-'      
+
+>--+-----------------------------+--,--------------------------->
+   '-MGMTclas=--management_class-'      
+
+>--+-----------------------+--,--+--------------------------+--->
+   '-DATAclas=--data_class-'     '-STORclas=--storage_class-'   
+
+>--,--+-------------+--,--+------------------------+-----------><
+      '-Unit=--unit-'     '-VOLser=--volume_serial-'  
+
+https://www.ibm.com/docs/en/zos-basic-skills?topic=information-search-order-resolver-configuration
+//SYSTCPD DD card. The data set allocated to the DDname SYSTCPD is used. In the z/OS UNIX environment, a child process does not have access to the SYSTCPD DD. This is because the SYSTCPD allocation is not inherited from the parent process over the fork() or exec function calls.
+userid.TCPIP.DATA. "userid" is the user ID that is associated with the current security environment (address space or task/thread). An MVS environment application could theoretically run without an associated user ID. If so, the job name would be used for this data set instead.
+SYS1.TCPPARMS(TCPDATA)
+DEFAULTTCPIPDATA. If defined, the resolver DEFAULTTCPIPDATA setup statement value is used.
+TCPIP.TCPIP.DATA
+
+As a batch job, you might use this JCL:
+//MAKESITE JOB ,TIME=2,NOTIFY=USER7
+//*
+//BATCH  EXEC PGM=MAKESITE,REGION=8000K,
+//  PARM='VOLSER=volser,UNIT=SYSDA,HLQ=TCPIP,'
+//*
+//STEPLIB DD DISP=SHR,DSN=TCPIP.SEZALOAD
+//SYSPRINT  DD  SYSOUT=*,DCB=(LRECL=132,RECFM=FBA,BLKSIZE=3960)
+//SYSABEND  DD  SYSOUT=*
+//
+
+--------------------------------------------
+
+ATTLS
+
+Implement TLS 1.2 without ATTLS:
+https://www.ibm.com/support/pages/zos-communications-server-tls-needed-implement-tls-v12
+
+Guide:
+https://www.ibm.com/docs/en/zos/2.2.0?topic=security-transport-layer
+https://www.ibm.com/docs/en/rtw/9.0.1?topic=clip-setting-up-tls#ritzos_attls__attls5
+
+For TN3270:
+https://www.ibm.com/support/pages/system/files/inline-files/An_Introduction_to_AT-TLS_for_FTP_and_TN3270.pdf
+
+PARAMETERS
+https://www.ibm.com/docs/en/zos/2.4.0?topic=applications-tls-policy-statements#tlspol
+
+TLS 1.3
+https://www.ibm.com/docs/en/zos/2.4.0?topic=security-tls-support-tls-v13
+
+https://www.ibm.com/docs/en/rtw/9.0.1?topic=clip-setting-up-tls#ritzos_attls__attls5
+https://www.ibm.com/support/pages/system/files/inline-files/An_Introduction_to_AT-TLS_for_FTP_and_TN3270.pdf
+https://www.ibm.com/support/pages/zos-communications-server-tls-needed-implement-tls-v12
+https://www.ibm.com/docs/en/integration-bus/10.0?topic=tls-configuring-activating-policy-agent-pagent
+https://www.ibm.com/docs/en/zos/2.4.0?topic=statements-ttlsenvironmentadvancedparms-statement
+https://www.ibm.com/docs/en/zos/2.2.0?topic=security-transport-layer
+https://www.ibm.com/docs/en/integration-bus/10.0?topic=tls-configuring-activating-policy-agent-pagent
+https://www.ibm.com/docs/en/ibm-mq/9.1?topic=codes-transport-layer-security-tls-return-zos
+https://www.ibm.com/docs/es/rtw/9.0.1?topic=clip-setting-up-tls
+https://www.ibm.com/docs/en/zos/2.2.0?topic=statements-tcpconfig-statement
+     | '-TIMEWAITInterval seconds-'                        |     
+     | .-NOTTLS-.                                          |     
+     '-+--------+------------------------------------------'     
+       '-TTLS---'      
+	   
+https://www.ibm.com/support/pages/how-can-we-determine-whether-tls-connection-mapped-tls-policy
+https://www.ibm.com/support/pages/how-can-i-determine-whether-tlsv12-enabled-my-tls-connections
+
+EZD1281I indicates that the TCP connection with the specified connection ID (CONNID) matched the specified Application Transparent Transport Layer Security (AT-TLS) rule. This CONNID will be used in all future AT-TLS messages for this connection. rule is the name of the TTLSRule that mapped this connection. stat is the AT-TLS status for the connection. The values for stat are:
+Not Enabled if TTLSEnabled in the matching AT-TLS policy is set to OFF (AT-TLS security is active. Data might be encrypted, based on other policy statements.).
+Enabled if TTLSEnabled in the matching AT-TLS policy is set to ON (AT-TLS security is not active. Data is sent in the clear.).
+Appl Control if ApplicationControlled in the matching AT-TLS policy is set to ON (An application can control AT-TLS security. AT-TLS security is used only when requested by the application, using the SIOCTTLSCTL ioctl.).
+
+D TCPIP,,N,CONN,CONNT,TTLSP
+
+ADD TLS Troubleshoot
+F PAGENT,REFRESH
+
+LogLevel 511
+TLSRFCLEVEL RFC4217
+
+ATTLS TRACE 2 
+
+https://www.ibm.com/docs/en/zos/2.3.0?topic=statements-ttlsconfig-statement
+https://www.ibm.com/docs/en/zos/2.5.0?topic=statements-ttlsrule-statement
+TTLSConfig  //'USER1.PAGENT.CONF(TTLS)'
+TTLSConfig  /u/user1/pagent.ttls
+
+--------------------------------------------
+
+D TCPIP,,N,CONFIG
+D TCPIP,,N,HOME
+D TCPIP,,N,STATS
+D TCPIP,,N,ROUTE,MAX=*
+D TCPIP,,OMPROUTE,OSPF,LIST,ALL
+D TCPIP,,OMPROUTE,RIP,LIST,ALL
+
+TCPIP PROFILE CONFIG:
+https://www.ibm.com/docs/en/zos/2.2.0?topic=statements-tcpconfig-statement
+
+SACONFIG ENABLED COMMUNITY public AGENT 161
+
+TCPIP PROFILE DELETE:
+https://www.ibm.com/docs/en/zos/2.1.0?topic=statements-delete-statement
+https://www.ibm.com/docs/en/zos/2.1.0?topic=messages-ezz0395i
+
+
+--------------------------------------------
+
+CONSOLES:
+
+HMC - OSA ADVANCED FACILITIES
+PANEL
+SERVER - PUT SERVER IP AND SUBNET, PORT AND DEFAULT GATEWAY
+SESSION - DEFINE THEM USING LU
+VALIDATE
+ACTIVATE
+
+OPEN A SESSION TO THAT IP AND PORT
+V CCCC,CONSOLE
+CONSOLE SHOULD COME UP 
+
+D C - Display Consoles
+
+TN3270:
+
+Same but look for LOCICC / Local Terminal definition and Activate it.
+
+/dev/console
+/dev/operlog
+https://www.ibm.com/docs/en/zos/2.4.0?topic=files-system-console
+
+--------------------------------------------
+
+D ICSF,LIST,SYSPLEX=YES
+D ICSF,CARDS,SYSPLEX=YES
+D ICSF,KDS,SYSPLEX=YES
+D ICSF,MKS,SYSPLEX=YES
+D ICSF,OPT,SYSPLEX=YES
+
+--------------------------------------------
+
+CT TRACE:
+
+https://www.ibm.com/docs/en/ims/13.1.0?topic=commands-trace-ct-command
+https://www.ibm.com/docs/en/zos/2.1.0?topic=parameters-statementsparameters-ctncccxx
+WRAP
+Specifies that when the system reaches the end of the data set or group of data sets, it writes over the oldest data at the start of the data set or the start of the first data set in the group. The primary extents of the data set are used.
+NOWRAP
+Specifies that the system stops writing to the data set or data sets when they are full. The primary and secondary extents of the data sets are used.
+
+>>-TRACE--CT,--------------------------------------------------->
+
+                           .-,WRAP---.                    
+>----+-WTRSTART=parmlibmem-+---------+--------------+----------><
+     |                     '-,NOWRAP-'              |     
+     +-WTRSTOP=jobname------------------------------+     
+     +-ON,COMP=irlmnm--+--------------------------+-+     
+     |                 |        .---------.       | |     
+     |                 |        V         |   (1) | |     
+     |                 '-,SUB=(---+-DBM-+-+-)-----' |     
+     |                            +-EXP-+           |     
+     |                            +-INT-+           |     
+     |                            +-SLM-+           |     
+     |                            +-XCF-+           |     
+     |                            '-XIT-'           |     
+     '-OFF------------------------------------------'  
+
+START:
+TRACE CT,WTRSTART=CTWTR,NOWRAP
+TRACE CT,ON,COMP=SYSTCPDA,SUB=(tcpip)    
+xx,WTR=CTWTR,END
+V TCPIP,tcpip,PKT,ON,FULL,IP=ipaddr|*,SRCP=port,DEST=port  
+
+(V TCPIP,tcpip,PKT,ON,FULL,abbrev=65,IP=* to remove header)
+
+STOP:
+V TCPIP,tcpip,PKT,OFF    
+TRACE CT,OFF,COMP=SYSTCPDA,SUB=(tcpip)  
+TRACE CT,WTRSTOP=CTWTR,FLUSH
+
+ALLOC FILE(SNIFFER) DA('HLQ.SNIFFER') 
+ALLOCATE DDNAME(IPCSDDIR) DSNAME('hlq.DDIR') SHR
+
+https://www.ibm.com/docs/fr/zos/2.1.0?topic=command-allocate-syntax
+
+File:
+
+SNIFFER:
+
+PS
+VB
+8000
+32000
+50 Cyls
+
+Trace:
+
+VB
+27994
+27998
+100 cyls
+
+CTRACE COMP(SYSTCPDA)       LOCAL +     
+   OPTIONS(( SESSION(DETAIL)         ))
+
+
+--------------------------------------------
+
+JES NODE - NJE
+
+$D NODE
+$D LINE 
+$SN,N=nodename
+$S N,LINEx,SOCKET=nodename
+
+--------------------------------------------
+
+DROP 
+https://www.ibm.com/docs/en/zos/2.4.0?topic=space-vary-tcpipdrop
+Vary 
+TCPIP
+,
+procname
+,
+DRop,
+CMD=DRop,
+connid
+CONNection=
+connid
+
+--------------------------------------------
+
+GSKSRVR trace instruction
+1. S GSKSRVR 
+2. TRACE CT,WTRSTART=GSKWTR 
+3. TRACE CT,ON,COMP=GSKSRVR 
+4. R n,JOBNAME=(yyy),OPTIONS=(LEVEL=255),WTR=GSKWTR,END 
+where yyy is the name of the TCPIP stack's jobname. 
+5. Recreate the error 
+6. TRACE CT,OFF,COMP=GSKSRVR 
+7. TRACE CT,WTRSTOP=GSKWTR 
+
+https://www.ibm.com/docs/en/ibm-mq/9.3?topic=tz-using-gskit-trace-problems-related-certificates-keys-when-using-ams-zos
+https://www.ibm.com/support/pages/how-do-you-capture-ibm-system-ssl-trace-analyse-output-sci68684
+https://www.ibm.com/support/pages/how-capture-and-format-ssl-component-trace
+https://www.ibm.com/docs/en/developer-for-zos/9.5.1?topic=issues-gsk-ssl-trace
+https://www.ibm.com/docs/en/zvm/7.1?topic=information-gsktrace-gsktrace-utility-command
+https://www.ibm.com/docs/en/zos/2.1.0?topic=information-capturing-trace-data-through-environment-variables
+
+--------------------------------------------
+
+Start VTAM internal trace on both sides:  
+F NET,trace,type=vtam,size=200m,opt=(CIO,PIU,CIA,MSG,PSS)
+Start GTF CCW trace with options:
+
+S GTF,,,(MODE=EXT)
+
+*6913 AHL125A  RESPECIFY TRACE OPTIONS OR REPLY U
+  TRACE=IOP,SSCHP,CCWP
+
+*6915 AHL101A  SPECIFY TRACE EVENT KEYWORDS --IO=,SSCH=,CCW=,IO=SSCH=
+R 6915,IO=SSCH=4112
+
+*6932 AHL102A  CONTINUE TRACE DEFINITION OR REPLY END 
+R 6932,CCW=(SI,CCWN=50,DATA=2048,IOSB)
+
+R 6933,END                                       
+IEE600I REPLY TO 6933 IS;END                     
+END                                              
+AHL103I  TRACE OPTIONS SELECTED --,IO=SSCH=(4112)
+AHL103I  CCW=(SI,IOSB,CCWN=50,DATA=2048)         
+*6934 AHL125A  RESPECIFY TRACE OPTIONS OR REPLY U 
+
+AHL031I GTF INITIALIZATION COMPLETE 
+  IO=SSCH=4112        
+ CCW=(SI,CCWN=50,DATA=2048,IOSB) 
+Recreate the problem. When the problem state occurs,  dump both VTAMs using F NET,CSDUMP and stop VIT and GTF.
+To stop GTF: STOP GTF
+To stop VIT: F NET,NOTRACE,TYPE=VTAM,MODE=INT,OPTION=END
+Action Plan: Await doc or results of change to MIHTMOUT.
+
+https://www.ibm.com/docs/en/zos/2.3.0?topic=gtf-starting-trace-vtam-remote-network-activity
+https://www.ibm.com/docs/en/zos/2.2.0?topic=communication-specifying-gtf-trace-options
+https://www.ibm.com/docs/en/zos/2.2.0?topic=sg-specifying-changing-gtf-trace-options-through-system-prompting
+https://www.ibm.com/docs/en/zos/2.4.0?topic=gtf-stopping
+--------------------------------------------
+
+XCF and EE 
+https://www.ibm.com/docs/en/zos/2.4.0?topic=distributor-route-selection-distributing-packets
+https://www.ibm.com/docs/en/zos/2.4.0?topic=ecaxmn-external-communication-adapter-xca-major-node-operand-descriptions
+
+--------------------------------------------
+
+OMPROUTE
+https://www.ibm.com/docs/en/zos/2.4.0?topic=routing-steps-configuring-ospf-rip-ipv4-ipv6
+https://manualzz.com/doc/28975554/z-os-omproute-hints-and-tips
+https://www.ibm.com/docs/en/zos/2.3.0?topic=statements-ospf-configuration
+https://www.ibm.com/docs/en/ssw_ibm_i_73/pdf/rzal6ospfpdf.pdf
+https://www.ibm.com/docs/en/zvm/7.1?topic=ospf-default-route
+
+D TCPIP,,OMPROUTE,OSPF,LIST,ALL
+D TCPIP,,OMPROUTE,RIP,LIST,ALL
+
+--------------------------------------------
+
+GENERAL INPUT for z/OS Communications Server Environment
+The following Communications Server configuration data is to be collected:
+􀀀 Identify all the current PMRs dealing with Communications Server.
+􀀀 Output from z/OS Health Checker for following elements:
+o UNIX System Services?
+o z/OS?
+o z/OS Communications Server?
+o Other application-related messages?
+UNIX System Services Input for MVS Images to be analyzed
+􀀀 Provide the BPXPRMxx, ATCSTRxx, and IVTPRMxx PARMLIB member statements for each LPAR in
+the sysplex which is being reviewed.
+􀀀 Provide the output from the following commands:
+D OMVS,O
+D OMVS,P
+D OMVS,L
+
+--------------------------------------------
+
+ESF Printers
+
+v.sp
+F ESFstc,D,PRINTERNAME,V
+F ESFstc,P,PRINTERNAME,V
+F ESFstc,S,PRINTERNAME,V
+
+JES PRINT 
+https://www.ibm.com/docs/en/zos/2.1.0?topic=printers-starting-printer-defined-jes2
+https://www.ibm.com/docs/en/zos/2.3.0?topic=section-t-prtnnnnn-t-rnnnnnprm-control-printer
+
+NPF Printers
+https://www.ibm.com/docs/en/zos/2.1.0?topic=introduction-network-print-facility-interfaces-vtam
+https://www-40.ibm.com/servers/resourcelink/svc00100.nsf/pages/zOSV2R3SC273658/$file/halp001_v2r3.pdf
+https://www.ibm.com/docs/en/zos/2.2.0?topic=introduction-overview
+
+--------------------------------------------
+
+LASTACK for TLS ISSUES: LE issue
+
+Add to TCPIP PROC
+//CEEOPTS  DD *
+HEAP64(10M,10M)
+HEAPPOOLS64(ON,
+24,,48,,72,,136,,192,,272,,
+568,,1056,,1584,,3008,,8096,)
+
+--------------------------------------------
+
+gskkyman
+https://www.ibm.com/docs/en/zos/2.1.0?topic=syntax-gskkyman
+https://www.ibm.com/docs/en/zos/2.1.0?topic=management-gskkyman-overview
+
+
+gskkyman -dc|-dcv [-k filename|-t tokenname] [-l label]
+gskkyman -dk [-k filename]
+gskkyman -e|-i [-k filename|-t tokenname] [-l label] [-p filename]
+gskkyman -g [-x days] [-cr filename] [-ct filename] [-k filename|-t tokenname] [-l label] [-kt
+ {ecgen|ecdsa|ecdh}] [-ca] [-ic]
+gskkyman -h|-?
+
+ -s [-k filename]
+ 
+ Use RENEW option 5 from menu to renew a CERTAUTH Certificate.
+ 
+ --------------------------------------------
+ 
+SNMP
+
+snmp -c communityname walk system
+
+Snmp -c comm -h host -a (use interfaces) -v (verbose) -d 4 (0-4 values) 
+
+Snmp command:
+https://www.ibm.com/docs/en/zos/2.4.0?topic=snmp-zos-unix-command
+
+https://www.ibm.com/docs/en/zos/2.2.0?topic=osnmpd-parameters
+SACONFIG ENABLED COMMUNITY public AGENT 161
+https://www.ibm.com/docs/en/zos/2.2.0?topic=statements-saconfig-statement
+
+Configuration:
+
+https://www.ibm.com/docs/en/zos/2.2.0?topic=osnmpd-parameters
+https://www.ibm.com/docs/en/zos/2.2.0?topic=needs-community-based-security
+https://www.ibm.com/docs/en/zos/2.2.0?topic=dssn-decide-your-security-needs-community-based-user-based
+https://www.ibm.com/docs/en/zos/2.2.0?topic=information-creating-user-keys#pwtok1
+https://www.ibm.com/docs/en/zos/2.2.0?topic=overview-snmp-agent
+https://www.ibm.com/docs/en/zos/2.2.0?topic=file-steps-migrating-pwsrc-snmptrapdest-files
+https://www.ibm.com/docs/en/zos/2.2.0?topic=agent-provide-tcpip-profile-statements
+https://www.ibm.com/docs/en/zos/2.2.0?topic=information-pwsrc-example
+https://www.ibm.com/docs/en/zos/2.2.0?topic=agent-sample-jcl-procedure-starting-osnmpd-from-mvs
+https://www.ibm.com/docs/en/zos/2.2.0?topic=agent-starting-osnmpd-from-zos-unix
+https://www.ibm.com/docs/en/zos/2.2.0?topic=subagents-connecting-agent-through-tcp
+https://www.ibm.com/docs/en/zos/2.2.0?topic=agent-allowing-subagents-duplicate-identifiers-connect
+https://www.ibm.com/docs/en/zos/2.2.0?topic=agent-provide-mib-object-configuration-information
+https://www.ibm.com/docs/en/zos/2.2.0?topic=agent-common-inet-considerations
+https://www.ibm.com/docs/en/zos/2.2.0?topic=agent-start-snmp
+
+
+VPS
+
+File Format KEY:
+SITE VARrecfm LRECL=32760 RECFM=U BLKSIZE=32760
+U    
+0    
+32760
+
+F LLA, UPDATE=VP
+SYS1.PARMLIB(VP)
+LIBRARIES(.LOAD)
+FREEZE(.LOAD)
+

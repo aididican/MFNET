@@ -1,0 +1,73 @@
+XMIT
+xmit user.node dsn('hlq.ql') outdsn('hlq.ql')
+receive indsn('hlq.ql')
+
+--------------------------------------------
+
+Connect Direct Manuals
+https://www.ibm.com/docs/en/scfz/5.2.0?topic=zos-signon-command
+https://www.ibm.com/docs/en/scfz/5.2.0?topic=command-using-signon-through-batch-interface
+https://www.ibm.com/docs/en/scfz/5.2.0?topic=sessions-signing-sterling-connectdirect-zos
+https://www.ibm.com/docs/en/scfz/5.2.0?topic=zos-using-signon-through-iui
+https://www.ibm.com/docs/en/scfz/5.2.0?topic=iui-setting-up-signon-defaults
+https://www.ibm.com/docs/en/scfz/5.2.0?topic=iui-viewing-your-current-signon-parameters
+https://www.ibm.com/docs/en/connect-direct/6.1.0?topic=errors-signon-iuiapi
+https://www.ibm.com/docs/en/connect-direct/6.1.0?topic=administrative-connectdirect-secure-plus-commands
+https://www.ibm.com/docs/en/connect-direct/6.1.0?topic=options-adding-remote-node-record-external-authentication-server
+https://www.ibm.com/docs/en/connect-direct/6.1.0?topic=administrative-connectdirect-secure-plus-commands
+https://www.ibm.com/docs/en/connect-direct/6.1.0?topic=zos-enable-validate-connectdirect-secure-plus-operation
+https://www.ibm.com/docs/en/connect-direct/6.1.0?topic=zos-troubleshooting
+
+--------------------------------------------
+
+WINSCP
+
+winscp.exe /console
+
+open hostname
+put C:/sadsad/asdad.txt HLQ.DATASET    // NO QUOTES
+
+open -passive=off ftpes://${useridpass}:$cpassword@$hostname/
+call site file=jes
+ascii  //  binary
+put ftpjcl.txt
+exit
+
+--------------------------------------------
+
+FTP USEFUL
+
+SITE        -FTP default
+QUOTE SITE  -Windows
+LOCSITE     -zOS
+CALL SITE   -WinSCP
+
+https://www.ibm.com/support/pages/sitelocsite-commands-mvs-ftp
+
+
+For PDS:
+cd NEXTLQ: Like if the PDS is USERID.PDS(*)
+You do:
+open hostname (working directory "HLQ.")
+cd PDS
+mput or mget
+
+For Binary Files:
+https://www.ibm.com/support/pages/transfer-ptf-binary-bin-file-your-pc-mvs-system
+Define the file attributes as: FB, LRECL 1024, BLKSIZE 27648
+Use mput for the file transfer.
+
+--------------------------------------------
+
+FTP to JES:
+open hostname
+userid
+password
+prompt off
+quote site file=jes
+dir
+
+SITE / LOCSITE / QUOTE SITE / CALL SITE
+
+SITE VARrecfm LRECL=32760 RECFM=U BLKSIZE=32760
+

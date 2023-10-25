@@ -1,0 +1,203 @@
+TSO OPSMVS
+4.11.2
+
+--------------------------------------------
+
+SYSVIEW
+
+/F SYSVIEW,REFRESH SECURITY
+
+--------------------------------------------
+
+XEQ:
+
+$DN,Q=XEQ
+$P XEQ
+QUIT XEQ nodename
+$S XEQ
+
+JCL:
+/*XEQ nodename
+
+--------------------------------------------
+
+// on Windows
+curl.exe -H "Content-Type:application/json" -d "{'text':'Hello World'}" <YOUR WEBHOOK URL>
+
+// on macOS or Linux
+curl -H 'Content-Type: application/json' -d '{"text": "Hello World"}' <YOUR WEBHOOK URL>
+
+--------------------------------------------
+
+COPY /etc/ and /var/
+
+cp -r /etc/ /u/users/user/etc
+diff -R /etc/ /u/users/user/etc/
+
+--------------------------------------------
+
+CA7 commands:
+
+ commands:
+a ucc7
+list
+xqj,job=ca7#
+tab - R (restart) - put name, tab down and put an X
+
+--------------------------------------------
+
+SETPROG 
+LLA REFRESH
+
+--------------------------------------------
+
+VMCF:
+F VMCF,DISPLAY,NAME=*
+F TNF,DISPLAY,NAME=*
+F VMCF,REMOVE,NAME=*
+F TNF,REMOVE,NAME=*
+PROCLIB()
+
+--------------------------------------------
+
+ISPF Commands
+=x
+=xall
+x all
+f str
+
+Remove all lines:
+x all
+f asssdsad all
+x '//*' all
+
+Command line on Top:
+ISPF - Main Panel - Option 0 - Command line on Bottom
+
+--------------------------------------------
+
+UTILS:
+Copy PDS - CO / S *
+Save in View Mode: rep .zf .zl samemembername
+
+--------------------------------------------
+
+Check VTOC config:
+In 3.4 put the Volume Serial 
+Put a v in the command line
+
+--------------------------------------------
+
+DB2
+db2 catalog tcpip node DB2SYSTEM remote HOSTNAME server PORT
+db2 catalog dcs database DB2SYSTEM_SYS as DB2SYSTEM_SYSTEM 
+db2 catalog database DB2SYSTEM_SYS as DB2SYSTEM_SYS at node DB2SYSTEM authentication server_encrypt
+
+--------------------------------------------
+
+DUMPS:
+D D,L - will tell you the available dump datasets
+
+dump comm=(high CPU) - (tcpip cpu)
+r xx,jobname=(TCPIP),sdata=(RGN,CSA,PSA,TRT,LSQA),end
+
+--------------------------------------------
+
+SDSF:
+
+PRINT
+PRINT CLOSE
+XDC
+
+IOF:
+
+SD
+N next to output
+SNAPCLOS
+
+IOF
+ed - edit JCL
+
+SDSF 
+sj - edit JCL
+
+IOF SDSF PANEL
+SN - Start node
+DL - Dsiaply Node status
+DC - Display connect information
+DP - Display Path information
+
+ ISPF PANEL:
+ https://www.ibm.com/docs/en/zos/2.1.0?topic=services-browse-browse-data-set
+ https://share.confex.com/share/117/webprogram/Handout/Session9764/S9764%20-%20ISPF%20Panels%20Advanced.pdf
+ ISPCMDS
+
+ PANELID - Will show the Panel ID and you can invoke it 
+
+ISPF How to know what is the panel you are on:
+PANELID ON - Will show the Panel ID to invoke
+
+http://www.techtricky.com/useful-list-of-tso-ispf-commands/
+http://www.techtricky.com/iebcopy-in-jcl-with-examples/
+https://ibmmainframes.com/about64370.html
+
+--------------------------------------------
+
+/D PARMLIB
+/$D PROC
+/
+
+--------------------------------------------
+
+INSTALL PRODUCT 
+RECEIVE TSO
+
+https://www.ibm.com/docs/en/sia?topic=i-uploading-adapter-package-4
+FB
+LRECL 80
+
+Use PCOMM Send File
+
+--------------------------------------------
+
+https://www.ibm.com/docs/en/zos/2.1.0?topic=command-displaying-device-status-allocation
+D U,VOL=VOLSER
+D U{[,deviceclass][,ONLINE ][,[/]devnum[,nnnnn]]                   }
+                 [,OFFLINE][,[/]devnum[,nnnnn]]                    
+                 [,ALLOC  ][,[/]devnum[,nnnnn]]                                  
+                 [,AUTOSWITCH|AS][,[/]devnum[,nnnnn]][SYS=sysname]  
+                 [,UNAVAILABLE|UNAVAIL][,[/]devnum[,nnnnn]]      (See Note)
+  
+   {,IPLVOL}
+  
+   {,VOL=volser}
+
+   [,L={a|name|name-a}]
+   
+ CF CHP(id),ONLINE/OFFLINE
+V dev,OFFLINE,FORCE (if boxed)
+ D M=DEV()
+ D M=CPU
+ D M=CHP()
+ D U,ALL,ONLINE
+ 
+ --------------------------------------------
+ 
+
+Edx //*
+
+--------------------------------------------
+
+OPUT  mvs_data_set_name | mvs_data_set_name(member_name)
+      'pathname'
+      BINARY | TEXT
+      CONVERT(character_conversion_table | YES | NO)
+
+OGET  'pathname'
+      mvs_data_set_name | mvs_data_set_name(member_name)
+      BINARY | TEXT
+      CONVERT(character_conversion_table | YES | NO)
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=tc-oput-copy-mvs-data-set-member-into-zos-unix-file
+https://www.ibm.com/docs/en/zos/2.4.0?topic=tc-oget-copy-zos-unix-files-into-mvs-data-set
+
