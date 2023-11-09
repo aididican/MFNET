@@ -115,6 +115,10 @@ SD
 N next to output
 SNAPCLOS
 
+SD DSN('HLQ.MEMBER')
+CAPTURE ROWS(4000) COLS(512)
+SNAPCLOS
+
 IOF
 https://www.triangle-systems.com/doc/7j/UG7JC13.HTM
 https://www.fisc.com/support/docs/IOF@8FUserGuide16.pdf
