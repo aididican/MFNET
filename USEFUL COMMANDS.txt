@@ -89,7 +89,7 @@ Put a v in the command line
 --------------------------------------------
 
 DB2
-db2 catalog tcpip node DB2SYSTEM remote HOSTNAME server PORT
+db2 catalog tcpip node DB2SYSTEM remote HOSTNAME server 5002 
 db2 catalog dcs database DB2SYSTEM_SYS as DB2SYSTEM_SYSTEM 
 db2 catalog database DB2SYSTEM_SYS as DB2SYSTEM_SYS at node DB2SYSTEM authentication server_encrypt
 
@@ -116,6 +116,16 @@ N next to output
 SNAPCLOS
 
 IOF
+https://www.triangle-systems.com/doc/7j/UG7JC13.HTM
+https://www.fisc.com/support/docs/IOF@8FUserGuide16.pdf
+
+SD
+N NEXT TO JOB
+SNAPCLOS
+
+LONG - Extended command
+
+IOF
 ed - edit JCL
 
 SDSF 
@@ -140,6 +150,112 @@ PANELID ON - Will show the Panel ID to invoke
 http://www.techtricky.com/useful-list-of-tso-ispf-commands/
 http://www.techtricky.com/iebcopy-in-jcl-with-examples/
 https://ibmmainframes.com/about64370.html
+
+1) To view the structure (details like starting position, end position, length and type of fields) of a copybook – This can be viewed from FILEAID option 8.
+
+2) To Copy a member from one PDS to Another:
+
+Open the first PDS using 3.4, and type C before the member and ENTER it will ask for the target PDS name, there give the PDS name.It will be copied by creating the Member with same name.
+
+3) To copy one entire PDS to another New PDS
+
+Open the source PDS using 3.4 option, and type CO before PDS name, then it will ask for the target PDS, Give the target PDS, it creates and copies the source to Target.
+
+Note: Once you give the CO and press enter it displays all the members in that PDS. There you can select the members you want to copy by giving the S before to that member.If you want to copy all the members give S * in the command line then it selects all the members in that PDS.
+
+4) In TSO to search a member from all of your PDS’s
+
+Go to 3.4 Type one PDS in your list
+Append all your PdS in your list by using Append command
+Type MEM “MBR Name” in the command line.
+The result will show the datasets contains that particular member.
+
+5) If you want to find all the members contain a particular string, Then
+
+Open the PDS using 3.4
+Type SRCHFOR ‘string’ in the command line.
+It shows all the members containing that string(press enter by putting the cursor on the PROMPT )
+6) TSO ISPVCALL STATUS to view the version of the system software.
+
+In SPOOL give the command /d prod. It gives the versions of system and sub systems.
+
+7) TSO command to find the latest version of the GDG.
+
+TSO LISTCAT LVL(GDG.BASE)
+
+8) While trying to open any member in a PDS, we sometimes come across
+
+“member in use” message. In that situation, if you want to know who is using the member currently, press F1 twice.
+
+9) Suppose you are in a ISPF Screen and want to know in which TSO Region ( Development, Production, or other TSO regions) you are now .
+
+Issue on the command line : SAREA
+
+10) To find the last datasets that you have accessed.
+
+GO TO ISPF 3.4 option.
+On the top, there is a MENUBAR. Select REFLIST
+Select Option 1 in it.
+Using this option you can find out the last 30 datasets that you have accessed.
+
+11) To replace a string in a Program/member
+
+Type C ALL ‘string1’ ‘string2’
+
+12) To replace a string in a program from specific line number(linenum1) to another line number(linenum2)
+
+– Put .A at linenum1 & .B at linenum2
+
+– Type C ALL ‘string1’ ‘string2’ .A .B
+
+It replaces all string1 with strng2 between the two line numbers(not the entire program)
+
+13) If you open the multiple screens in ISPF, to navigate between those you need to type the below commands:
+
+If you want open the 1st screen type 1 in command line and press F9, for 2nd screen 2 and F9 etc.
+
+If you want to see all the opened screens type LIST and press F9. Type S before the screen you want to open and press enter.
+
+Active ISPF Logical Sessions
+
+. Start a new screen
+. Start a new application
+
+Application Name
+
+ID Name Panelid Applid Session Type
+
+S 1 FMDB2 FMN2P2EZ FMN2 3270
+. 2* DSLIST ISRUDSM ISR 3270
+. 3- ISFPCU41 ISF 3270
+14) To purge multiple jobs in SDSF:
+
+Enclose all the jobs that needs to be purged with ‘//’ and ‘//P’ as shown below and press enter which inturn purges all the enclosed spool listings.
+
+NP JOBNAME JobID Owner Prty Queue C Pos SAff ASys Status 
+//  JB001A JBU00001 USER 1 PRINT 3117 
+    JB001A JBU00002 USER 1 PRINT 3118 
+    JB001B JBU00003 USER 1 PRINT 3119
+//P JB001C JBU00004 USER 1 PRINT 3122
+
+15) ISPF Log can be view from Option 7.5 . It gives the latest performed operations.
+
+ Command ===> Scroll ===> CSR 
+********************************* Top of Data **********************************
+Time *** ISPF transaction log *** Us
+
+01:26 Start of ISPF Log - - - - Session # 229 -------------------------
+01:30 TSO - Command - - HRECOVER 'MG001A.CMD.SOURCE(MEM001)' 
+01:35 Utility - Move/Copy - MG001A.CMD.SOURCE(MEM001)' Copied 
+01:35 - to 'MG001A.CMD.BKUP(MEM001)'' 
+01:35 Utility - Delete - ''MG001A.CMD.BKUP(MEM002)' deleted from volume PR
+01:35 TSO - Command - - %@SDSF 
+01:36 TSO - Command - - MAP 
+01:37 TSO - Command - - MAPLIST 
+01:44 TSO - Command - - COMPARE SESSION 
+02:11 TSO - Command - - ISPVCALL STATUS 
+******************************** Bottom of Data *********************
+
 
 --------------------------------------------
 
@@ -201,3 +317,370 @@ OGET  'pathname'
 https://www.ibm.com/docs/en/zos/2.4.0?topic=tc-oput-copy-mvs-data-set-member-into-zos-unix-file
 https://www.ibm.com/docs/en/zos/2.4.0?topic=tc-oget-copy-zos-unix-files-into-mvs-data-set
 
+--------------------------------------------
+
+SAR
+
+Recover TAPE 
+"no mount authority"
+L - enter - JCL created - PF3 and PF3 again, use jobcard and get it mounted
+
+(If on TAPE)
+Put an L beside the job and hit enter
+PF3 twice
+Enter Jobcard and submit
+Once the job completes, bago back into SAR and the report will be on disk
+
+----------------------------------------------
+
+UNIX
+
+mv -R directorya directoryb
+https://www.ibm.com/docs/en/zos/2.1.0?topic=files-renaming-moving-file-directory
+
+pax -rw /u/users/seba/stuff /u/users/guerra/stuff - it gets copied into /u/users/guerra/stuff
+https://www.ibm.com/docs/en/zos/2.4.0?topic=sets-copying-files-within-zos-unix-file-system
+https://www.ibm.com/docs/en/zos/2.4.0?topic=descriptions-pax-interchange-portable-archives
+https://ibmmainframes.com/about49289.html
+https://www.tutorialspoint.com/unix_commands/pax.htm
+https://www.computerhope.com/unix/upax.htm
+
+
+cp copy file
+https://www.ibm.com/docs/en/zos/2.4.0?topic=descriptions-cp-copy-file
+
+USS
+Copy files 
+https://www.ibm.com/docs/en/zos/2.4.0?topic=sets-copying-files-within-zos-unix-file-system
+https://www.ibm.com/docs/en/zos/2.4.0?topic=zufs-copying-data-between-zos-unix-file-system-mvs-data-sets
+https://www.ibm.com/docs/en/zos/2.4.0?topic=sets-copying-data-using-zos-shell-commands
+https://www.ibm.com/docs/en/zos/2.4.0?topic=sets-copying-data-using-tsoe-commands
+https://www.ibm.com/docs/en/zos/2.1.0?topic=set-example-using-jcl-ocopy
+https://www.ibm.com/docs/en/zos-basic-skills?topic=sample-reusable-jcl-copying-load-module
+
+-----------------------------------------------
+
+TSO LOCATE MODULE
+
+d prog,lnklist
+SETPROG LNKLST,DEFINE,NAME=new,COPYFROM=old
+SETPROG LNKLST,ADD,NAME=new,DSNAME=HLQ.QL,VOLUME=XXXXXX,ATTOP 
+SETPROG LNKLST,ACTIVATE,NAME=new
+
+----------------------------------------------
+
+TSOE:
+https://www.ibm.com/docs/en/zos/2.1.0?topic=commands-continuing-command-another-line
+https://www.ibm.com/docs/en/zos/2.4.0?topic=syntax-line-continuation
+
+Tsocmd - from shell SSH
+https://www.ibm.com/docs/en/zos/2.4.0?topic=scd-tsocmd-run-tsoe-command-from-shell-including-authorized-commands
+
+-----------------------------------------------------
+
+IMS 
+https://www.ibm.com/docs/en/ims/15.1.0?topic=commands-display
+https://www.ibm.com/docs/en/ims/14.1.0?topic=commands-display-status-command
+https://www.ibm.com/docs/en/ims/14.1.0?topic=commands-display-act-command
+https://www.ibm.com/docs/en/ims/15.1.0?topic=problems-input-queuing-schedulingtermination-in-dbdc-dcctl-environments
+https://www.ibm.com/docs/en/ims/13.1.0?topic=commands-display-node-command
+https://www.ibm.com/docs/en/ims/13.1.0?topic=commands-status-attributes-display-command
+
+---------------------------------------------------
+
+List all members
+https://ibmmainframes.com/about20083.html
+https://ibmmainframes.com/about35401.html
+https://ibmmainframes.com/about30765.html
+
+
+Copy all members
+https://ibmmainframes.com/about67133.html
+https://www.ibm.com/docs/en/zos/2.3.0?topic=examples-example-1-copy-entire-data-set
+https://www.ibm.com/docs/en/zos/2.2.0?topic=ie-example-3-copy-replace-selected-members-data-set
+http://www.techtricky.com/iebcopy-in-jcl-with-examples/
+http://www.techtricky.com/useful-list-of-tso-ispf-commands/
+/ 17 s *
+
+3) To copy one entire PDS to another New PDS
+
+Open the source PDS using 3.4 option, and type CO before PDS name, then it will ask for the target PDS, Give the target PDS, it creates and copies the source to Target.
+
+Note: Once you give the CO and press enter it displays all the members in that PDS. There you can select the members you want to copy by giving the S before to that member.
+If you want to copy all the members give S * in the command line then it selects all the members in that PDS.
+-------------------------------------
+
+CANCEL
+THEN FORCE ARM
+THEN FORCE
+
+D A,L
+D A,STC - Get Address Space
+CANCEL STC
+FORCE STC,A=addressspace,ARM
+FORCE STC,A=addresspace
+If the STC is in STARTING status:
+D A,STARTING
+CANCEL STARTING,A=addressspace
+FORCE STARTING,A=addresspace,ARM
+FORCE STARTING,A=addresspace
+
+FORCE ARM
+https://www.ibm.com/docs/en/zos/2.4.0?topic=reference-force-command
+https://www.ibm.com/docs/en/zos/2.2.0?topic=fc-parameters
+
+
+STOP TCPIP
+/FORCE TCPIP,ARM
+
+--------------------------------------------------------
+
+TSO PRINTDS('HLQ.QL')
+TSO PRINT DS('HLQ.QL')
+
+---------------------------------------------------------
+
+IPCS
+
+DEFINE CLUSTER(NAME('userid.DDIR') VOLUMES(VSAMnn) REUSE)
+  INDEX(NAME('userid.DDIR.I') TRACKS(1 1) )
+  DATA(NAME('userid.DDIR.D') CYLINDERS(1 1) KEYS(128 0)
+    RECORDSIZE(384 3072) )
+
+IPCSDDIR 'userid.DDIR'
+ALLOCATE DDNAME(IPCSDDIR) DSNAME('userid.DDIR') SHR
+ALTLIB ACTIVATE APPLICATION(CLIST) DA('SYS1.SBLSCLI0')
+
+After doing all this, you can now EX the IPCS panel using this TSO command:
+EX 'SYS1.SBLSCLI0(BLSCLIBD)'
+
+-----------------------------------------------------
+
+VM:
+https://www.ibm.com/docs/en/zvm/7.2?topic=osas-removing-osa-from-system
+
+
+----------------------------------------------------
+
+AF OPER
+
+Afs  -start
+Afc -cycle
+Afp -stop
+
+----------------------------------------------------
+
+Check Unix SS Path:
+echo $PATH
+
+hostname -g
+pasearch -t
+curl 
+Java -version
+
+find / -name known_hosts
+https://www.ibm.com/docs/en/aix/7.1?topic=files-finding-find-command
+
+_BPX_JOBNAME='SSHD' /usr/sbin/sshd
+
+ls -al 
+ sudo apt update. - update your libraries
+ sudo apt install finger
+ finger userid. - inspects another user
+
+ grep.  - it is used after a pipe |. So like
+ ip address | grep eth0
+ awk - also after pipe
+ ip address | grep eth0 | awk ’{print $2}’
+ resolvectl status. - resolver info
+
+pasearch -t | grep 'policyRule'
+
+ ping 
+-c (count how many pings) 
+-s (size of the packet
+
+ whois
+ whoami
+ whatis. - gives some info
+ man - manual command
+ which. - will tell you where the program is (one place)
+ whereis - will tell you all places the program is
+ uname -a   -os information
+ df -H.   - disk space
+ ps -aux.   -will give you all running processes 
+ kill -9 psid.   - -9 is force
+ pkill -f processname
+ 
+  cat. -reads the whole thing
+ less - read page by page (much better)
+ head - read only beginning
+  tail - read only end
+ cmp - compares 2 files and tells you if it has differences
+ diff - compares 2 files and will tell you what the difference is
+ sort - sorts in alphabetical order
+ find / -name “”. - it is find then in which directory then the name of the file
+
+Find hidden files:
+ find . -type f -name “.”
+
+Find empty directories:
+ find . -type f -empty
+
+Find executables
+ find . -perm /a=x  
+ 
+ netstat tulpn
+ 
+  cat file | sort.   - using | or pipe command lets you add to the command
+
+ ssh-keygen -A.  - will create a set of hosts keys
+ ssh-keygen -f “home/.ssh/known_hosts” -R  hostname.   - will remove that host key
+
+ rm. Remove file
+ rm -r directory. - using the -r for recursive it deletes directories that are not empty 
+ rmdir remove dir
+ rm filename.* / or filen* will delete filen+anycharacter, like rm ssh_host_*
+ mkdir
+ cp
+ cp -r . /newdir.  - will copy all files including hidden ones 
+ mv move a file - cut
+ ln -s filename path.  -this is to link, create a link to a file -s is for soft
+ clear
+
+ su userid. - you can access another user credential
+ passwd. - change your password
+ sudo passwd userid. - change someone elses pass
+
+ touch filename{1…10}    -will create 10 files called filename1 to 10
+ touch -d tomorrow filename.  -the -d means it will specify the date of creation
+
+ echo “something” > file.   -this will add the text into that file
+
+ vim
+ I to start inserting text
+ Esc to stop
+ ;wq to write quit
+
+curl http > filename.   - downloads to a file
+
+Create bash for sftp:
+
+ mkdir /u/users/$userid
+ chgmod 755 /u/users/$userid
+ chgown $userid /u/users/$userid
+ mkdir /u/users/$userid/.ssh
+ chgmod 755 /u/users/$userid/.ssh
+ chgown $userid /u/users/$userid/.ssh
+ ssh-keygen -t rsa -f /u/users/$userid/.ssh/
+ chgown $userid /u/users/$userid/.ssh/id_rsa
+ cp -r /u/users/otheruser/. /u/users/$userid
+
+Create bash for checking policies:
+
+ cat /etc/pagent/pagent_TTLS.conf
+ pasearch -t
+
+Create bash for checking directories:
+
+ cd /tmp/
+ cd /etc/
+
+Just take it from BPXPRMxx
+
+Cmd1; cmd2  - run next command
+
+Cmd1 && cmd2 - run next only if successful 
+
+Cmd1 || cmd2 - run next only if fail
+
+
+
+----------------------------------------------------
+
+
+JES2 Commands:
+$P LINE(2-*)
+$S LINE(40)
+https://www.ibm.com/docs/en/zos/2.3.0?topic=section-p-linennnnn-stop-line
+$DPROC 
+
+$SUBMIT
+https://www.ibm.com/docs/en/zos/2.4.0?topic=section-submit-submit-member-from-submitlib
+
+----------------------------------------------------
+
+SSL JAVA
+https://www.ibm.com/docs/en/db2/9.7?topic=ssl-configuring-java-runtime-environment-use
+https://www.ibm.com/docs/en/db2/11.1?topic=ssl-configuring-java-runtime-environment-use
+https://www.ibm.com/docs/pt/sim/6.0.0.22?topic=middleware-configuring-ssl-websphere-application-server
+https://www.ibm.com/docs/en/cics-ts/5.3?topic=sja-configuring-ssl-tls-liberty-jvm-server-using-java-keystore
+https://www.ibm.com/docs/en/db2/11.5?topic=ssl-configuring-java-runtime-environment-use
+https://www.ibm.com/docs/en/db2/10.1.0?topic=ssl-configuring-java-runtime-environment-use
+
+---------------------------------------------------
+
+SETPROG APF,ADD,DSN=load.new ,VOLUME= newvol
+
+----------------------------------------------------
+
+
+Windows:
+
+ ipconfig /all
+ Find string on any command: ipconfig /all | findstr dns
+ ipconfig /release - /renew
+ ipconfig /displaydns
+ | clip - copies output to clipboard
+ ipconfig /displaydns | clip
+ ipconfig /flushdns
+ nslookup hostname dnsserverip
+ nslookup -type=txt hostname
+Type:
+ mx - mail
+ ptr - pointer
+ txt - text
+
+ assoc - will tell you which files are associated to which program 
+ assoc .mp4=VLC.vlc
+
+ cls - clean screen
+ getmac /v
+
+ powercfg /energy - /batteryreport
+ chkdsk /f (fix) /r (physical sector issues)  
+ sfc /scannow
+ DISM /Online /Cleanup-image /CheckHealth
+ Basic
+Deeper - /ScanHealth
+Deeper - /RestoreHealth
+Do sfc /scannow afterwards
+
+ tasklist | findstr script
+ taskkill /f /pid pid
+
+ netsh wlan show wlanreport
+ netsh interface ip show address
+ netsh interface ip show dnsservers
+ netsh advfirewall set allprofiles status off
+
+ ping:
+ -t infinite ping
+
+ tracert:
+ -d will not resolve host names
+
+ netstat:
+ -af
+ -o
+ -e -t 5
+
+ route:
+ print
+ add network mask interface
+  add 192.168.4.0 mask 255.255.255.0 192.168.1.10
+ delete 192.168.4.0
+
+Restart to BIOS
+ shutdown /r /fw /f  /t 0
+ 

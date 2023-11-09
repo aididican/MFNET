@@ -1,0 +1,74 @@
+ACF2 
+IS CASE SENSITIVE
+
+CHANGE userid PASS(password)
+
+T PROF(USER) DIV(KEYRING)
+T PROF(USER) DIV(CERTDATA)
+LIST USERID.RING
+LIST USERID.CERT
+
+T RES(FAC)
+L IRR
+t res(fac)
+t res(rda)
+l user
+chkcert
+set profile(user) div(omvs)                                                   
+list uid
+
+omvs
+Keyring
+CERTDATA
+
+-------------------------------------------------------
+
+ACF2 LIST ALL RINGS:
+T PROF(USER) DIV(KEYRING)
+LIST LIKE(-)
+
+ACF2 LIST ALL CERTS:
+T PROF(USER) DIV(CERTDATA)
+LIST LIKE(-)
+
+
+F ACF2,REBUILD(usr),class(p)                                      
+F ACF2,OMVS 
+F ACF2,RESET(UID)
+
+
+F ACF2,REBUILD(USR),CLASS(P) 
+F ACF2,OMVS(CERTDATA) 
+F ACF2,REBUILD(FAC)
+
+---------------------------------------------------------
+
+Chkcert 
+
+ACF2
+CHKCERT certificaterecord CHAIN - will show the certificate chain
+
+ACF2
+CHKCERT DSN('frank01.mycert') password('pass')
+
+----------------------------------------------------------
+
+CHA keyringdata DEFAULT(certdata)
+
+INSERT USING(oldring) newring
+
+$KEY(USERID) TYPE(RDA)
+ RINGNAME.LST UID(UID) SERVICE(READ) ALLOW
+
+$KEY(IRR) TYPE(FAC)
+ DIGTCERT.LIST UID(ID) SERVICE(READ) ALLOW
+ DIGTCERT.LISTRING UID(ID) SERVICE(READ,UPDATE) ALLOW
+
+$KEY(APPLID) TYPE(APL)
+ UID(ID) ALLOW
+
+https://www.ibm.com/docs/en/zos/2.1.0?topic=gime-importing-certificate-from-file-as-trusted-ca-certificate
+https://techdocs.broadcom.com/us/en/ca-mainframe-software/security/ca-acf2-for-z-os/16-0/administrating/digital-certificate-support.html
+https://techdocs.broadcom.com/us/en/ca-mainframe-software/security/ca-acf2-for-z-os/16-0/administrating/digital-certificate-support/process-digital-certificates-with-ca-acf2.html
+https://knowledge.broadcom.com/external/article/18198/does-acf2-support-virtual-keyrings.html
+https://knowledge.broadcom.com/external/article/94292/how-do-we-specify-keyring-name-in-a-batc.html
