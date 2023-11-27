@@ -172,6 +172,77 @@ MOD VT=x,AVAIL
 MOD VT=x,UNAVAIL
 ```
 
+--------------------------------------------------------
+
+## VTAM Display Commands
+
+D NET,STATIONS
+D NET,SESSIONS,SCOPE=ALL,LIST=ALL
+D NET,MAJNODES
+D NET,VTAMOPTS
+D NET,BFRUSE,BUFFER=SHORT
+D NET,CSM,OWNERID=ALL
+D NET,EE,LIST=DETAIL
+D NET,TGPS
+D NET,TRL
+
+https://www.ibm.com/docs/en/zos/2.1.0?topic=commands-using-vtam-display-problem-determination
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-display-aping-command
+
+https://www.ibm.com/docs/en/zos/2.3.0?topic=commands-display-id-command
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-display-vtamopts-command
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-display-tgps-command
+
+https://www.ibm.com/docs/en/zos/2.3.0?topic=commands-display-appls-command
+
+https://www.ibm.com/docs/en/zos/2.1.0?topic=commands-display-terms-command
+
+https://www.ibm.com/docs/en/zos/2.2.0?topic=commands-display-table-command
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-display-majnodes-command
+
+https://www.ibm.com/docs/en/zos/2.1.0?topic=section-d-network-display-network-activity
+
+https://www.ibm.com/docs/en/zos/2.1.0?topic=commands-display-eediag-command
+
+https://www.ibm.com/docs/en/zos/2.3.0?topic=commands-display-directry-command
+
+https://www.ibm.com/docs/en/zos/2.3.0?topic=commands-display-adjclust-command
+
+https://www.ibm.com/docs/en/zos/2.1.0?topic=commands-display-topo-command
+
+https://www.ibm.com/docs/en/zos/2.3.0?topic=commands-display-csm-command
+
+https://www.ibm.com/docs/en/zos/2.2.0?topic=commands-display-trl-command
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-d-stations-command
+
+https://www.ibm.com/docs/en/zos/2.3.0?topic=commands-display-netsrvr-command
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-display-bfruse-command
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-display-cpcp-command
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-display-csdump-command
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-display-sessions-command
+
+------------------------------------------------------------------------
+
+## VTAM Modify and Vary Commands
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-vary-inact-command
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-vary-act-command
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-modify-trace-command
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-modify-csdump-command
+
+
 -----------------------------------------------------------------------------------------------------------------------------
 
 # FILE TRANSFERS
