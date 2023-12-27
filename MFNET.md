@@ -1306,92 +1306,153 @@ F VPS,DISPLAY,PRTID,TCPIP
 
 
 DISPLAY
+
 Function: Display VPS status and option information.
+
 Description: This command provides the facility to display option and status
 information pertinent to the individual VPS printers and/or the VPS
 System.
+
 Format: F VPS,DISPLAY,EXITS
+
 Display status of VPS exits (this can be coded as EXITS to see the status
 of all exits, as EXITnn to display the status of an individual exit, or as
 EXITnn-nn to display the status of a range of exits).
+
 F VPS,DISPLAY,DEFAULT
+
 Display options in the master printer default member.
+
 F VPS,DISPLAY,prtrid,disopt1{,disopt2....,disoptn},S=status
+
 Display options in a particular printer member. disoptn specifies the
 requested display option(s), S=status is used to filter the results of the
 display command to printers matching the requested status (See page 7.2
 for a complete list of status (S=) options).
+
 Only sufficient characters to make the option unique need be specified.
 AFP Display datastream conversion options.
+
 DIAG: Printer diagnostic information.
+
 EMAIL Display email options.
+
 EXITS Display EXITnn keywords.
+
 GRAPH: Graphics options.
+
 HARDWARE: Hardware options.
+
 MISC: Miscellaneous options.
+
 OPER: Operational options.
+
 OPTIONS: Printer options.
+
 PROCESS: Processing statistics.
+
 QUEUE: Queue dataset statistics/options.
+
 REQUEUE: Requeue options.
+
 SELECTION: Printer selection criteria.
+
 STATUS: Printer status.
+
 TCPIP: VTAM or TCP/IP related information.
+
 VTAM: VTAM or TCP/IP related information.
+
 ZIIP: ZIIP information.
+
 *: All the above except DIAG.
+
 F VPS,DISPLAY,SYSTEM
+
 Display VPS system-wide options and status.
+
 F VPS,DISPLAY,SYSTEM,FILESYS
+
 Displays the VPS file system information.
+
 F VPS,DISPLAY,SYSTEM,KEYS
+
 Displays each valid LRS product key that was specified during VPS
 initialization.
-7.8 VPS Installation and Operation Manual V2 R1.2 S010-V2R12-1 Rev. Date: January 19, 2021
+
 F VPS,DISPLAY,SYSTEM,AFPCACHE
+
 Display general information about cached AFP resources. Message
 VPS0931R will be issued for each resource type.
+
 F VPS,DISPLAY,SYSTEM,AFPCACHE(FDEF=NAME|NAME*)
+
 (PDEF=NAME|NAME*)
+
 (OVLY=NAME|NAME*)
+
 (PSEG=NAME|NAME*)
+
 (FONT=NAME|NAME*)
+
 (ID=########)
+
 Display specific information about the specified resource(s) of the
 requested type. ID subparameter will display information about the
 resource associated with the specified unique ID. Messages VPS0932R,
 VPS0933R, and VPS0934R will be issued for each matching resource.
+
 F VPS,DISPLAY,SYSTEM,MODULE,modid
+
 Display information about a specific VPS module (e.g., load address,
 entry address, length).
+
 F VPS,DISPLAY,SYSTEM,TASK
+
 Display the status of each VPS task (system and printer tasks). Message
 VPS0959R will be issued for each VPS task.
+
 F VPS,DISPLAY,SYSTEM,WHERE,address
+
 Displays the module and offset related to a specified address.
+
 F VPS,DISPLAY,SYSTEM,ZIIP
+
 Display the VPS ZIIP information.
+
 F VPS,DISPLAY,S=E
+
 Display a list of all printers that are in an EDRAINED status.
-See page 7.2 for a complete list of status (S=) options.
+
 F VPS,DISPLAY,VPSPRT*,S=E,TCP
+
 Display the VTAM or TCP/IP related information for printers named
 with a prefix of VPSPRT, that are in EDRAINED status.
 Comments: STATUS is the default display option for a printer display if no options
 are specified.
+
 Example: F VPS,DISPLAY,VPSPRT99,ST,SEL
+
 Display status information and selection criteria for printer VPSPRT99.
-Operation : VPS Commands 7.9
+
 END
+
 EXPIRE
+
 INACTIVATE
+
 Function: Normally terminate VPS.
+
 Description: This command will notify VPS to initiate normal termination processing.
+
 Format: F VPS,END
+
 Comments: This command has no operands or prtrid specification.
 VPS will not terminate until all printers that are currently busy complete
 the job that they are processing.
+
 Example: F VPS,END
+
 Terminate VPS normally
 
 [INDEX](#index)
@@ -1528,86 +1589,167 @@ mvsget
 
 
 1	AMBIGUOUS	false
+
 2	?	false
+
 3	ACCT	true
+
 4	APPEND	true
+
 5	ASCII	true
+
 6	BINARY	true
+
 7	CD	true
+
 8	CLOSE	true
+
 9	TSO	false
+
 10	OPEN	true
+
 11	DEBUG	false
+
 12	DELIMIT	false
+
 13	DELETE	true
+
 14	DIR	true
+
 15	EBCDIC	true
+
 16	GET	true
+
 17	HELP	false
+
 18	LOCSTAT	true
+
 19	USER	true
+
 20	LS	true
+
 21	MDELETE	true
+
 22	MGET	true
+
 23	MODE	true
+
 24	MPUT	true
+
 25	NOOP	true
+
 26	PASS	true
+
 27	PUT	true
+
 28	PWD	true
+
 29	QUIT	true
+
 30	QUOTE	true
+
 31	RENAME	true
+
 32	SENDPORT	true
+
 33	SENDSITE	false
+
 34	SITE	false
+
 35	STATUS	true
+
 36	STRUCTURE	true
+
 37	SUNIQUE	true
+
 38	SYSTEM	true
+
 40	TYPE	true
+
 41	LCD	true
+
 42	LOCSITE	true (see previous note in FTP subcommand codes)
+
 43	LPWD	false
+
 44	MKDIR	true
+
 45	LMKDIR	true
+
 46	EUCKANJI	true
+
 47	IBMKANJI	true
+
 48	JIS78KJ	true
+
 49	JIS83KJ	true
+
 50	SJISKANJI	true
+
 51	CDUP	true
+
 52	RMDIR	true
+
 53	HANGEUL	true
+
 54	KSC5601	true
+
 55	TCHINESE	true
+
 56	RESTART	false
+
 57	BIG5	true
+
 58	BLOCK	true
+
 59	COMPRESS	true
+
 60	FILE	true
+
 61	PROXY	true
+
 62	RECORD	true
+
 63	SCHINESE	true
+
 64	STREAM	true
+
 65	GLOB	false
+
 66	PROMPT	false
+
 67	UCS2	true
+
 68	!	true
+
 70	DUMP	false
+
 71	VERBOSE	false
+
 72	CLEAR	true
+
 73	CPROTECT	true
+
 74	PRIVATE	true
+
 75	PROTECT	true
+
 76	SAFE	false
+
 77	CCC	true
+
 78	LANGUAGE	true
+
 79	FEATURE	true
+
 80	SRESTART	true
+
 81	AUTH	true
+
 82	mkfifo	true
+
 83	MVSGET	true
+
 84	MVSPUT	true
 
 EXAMPLE:
@@ -1782,13 +1924,13 @@ https://www.ibm.com/docs/en/zos/2.1.0?topic=utility-invoking-bpxbatch-in-batch-j
 
 ```
 # sftp -h
-usage: sftp Ý-46aCfpqrv¨ Ý-B buffer_size¨ Ý-b batchfile¨ Ý-c cipher¨
-          Ý-D sftp_server_path¨ Ý-F ssh_config¨ Ý-i identity_file¨ Ý-l limit¨
-          Ý-o ssh_option¨ Ý-P port¨ Ý-R num_requests¨ Ý-S program¨
-          Ý-s subsystem | sftp_server¨ host
-       sftp Ýuser@¨hostÝ:file ...¨
-       sftp Ýuser@¨hostÝ:dirÝ/¨¨
-       sftp -b batchfile Ýuser@¨host
+usage: sftp -B buffer_size -b batchfile -c cipher
+          -D sftp_server_path -F ssh_config -i identity_file -l limit
+          -o ssh_option -P port -R num_requests -S program
+          -s subsystem | sftp_server host
+       sftp user@host:file ...
+       sftp user@host:dir/
+       sftp -b batchfile user@host
 ```
 
 https://www.ibm.com/docs/en/zos/2.2.0?topic=ssftp-options
@@ -1800,7 +1942,7 @@ https://www.ibm.com/docs/en/integration-bus/10.0?topic=sftp-known-host-checking
 SSH
 
 ```
-usage: ssh Ýoptions¨ Ýuser@¨host Ýcommand¨
+usage: ssh options user@host command
 Options:
   -4          Use IPv4 addresses only.
   -6          Use IPv6 addresses only.
@@ -1832,16 +1974,16 @@ er.
   -y          Send log information to syslog.
   -b addr     Local IP address.
   -c cipher   Select encryption algorithm.
-  -D Ýbind-addr:¨port     Enables dynamic application-level port forwarding.
+  -D bind-addr:port     Enables dynamic application-level port forwarding.
   -e char     Set escape character; ``none'' = disable (default: ~).
   -E file     Append debug logs to file instead of standard error.
   -F config   Config file (default: ~/.ssh/config).
   -i file     Identity for public key authentication.
-  -J Ýuser@¨hostÝ:port¨¨     Shortcut to specify a ProxyJump configuration direc
+  -J user@host:port     Shortcut to specify a ProxyJump configuration direc
 tive.
 tive.
-  -L Ýbind_address:¨port:host:hostport   Forward local port to remote address.
-  -L Ýbind_address:¨port:remote_socket   Forward local port to remote socket.
+  -L bind_address:port:host:hostport   Forward local port to remote address.
+  -L bind_address:port:remote_socket   Forward local port to remote socket.
   -L local_socket:host:hostport          Forward local socket to remote address.
   -L local_socket:remote_socket          Forward local socket to remote socket.
   -l user     Log in using this user name.
@@ -1851,11 +1993,11 @@ tive.
   -p port     Port to connect to on the remote host.
   -Q cipher | cipher-auth | mac | kex | key | key-cert | key-plain | protocol-ve
 rsion   Queries ssh for the supported algorithms.
-  -R Ýbind_address:¨port:host:hostport   Forward remote port to local address.
-  -R Ýbind_address:¨port:local_socket    Forward remote port to local socket.
+  -R bind_address:port:host:hostport   Forward remote port to local address.
+  -R bind_address:port:local_socket    Forward remote port to local socket.
   -R remote_socket:host:hostport         Forward remote socket to local address.
   -R remote_socket:local_socket          Forward remote socket to local socket.
-  -R Ýbind_address:¨port                 Forward remote port to using SOCKS.
+  -R bind_address:port                 Forward remote port to using SOCKS.
   -S ctl-path Specifies the location of a control socket for connection sharing.
   -W host:port   Requests that client standard input and output be forwarded.
 
@@ -1871,8 +2013,8 @@ ssh-keyscan -H -t rsa 8.8.8.8  >> ~/.ssh/known_hosts
 ```
 # ssh-keyscan -h
 unknown option -- h
-usage: ssh-keyscan Ý-46cHv¨ Ý-f file¨ Ý-p port¨ Ý-T timeout¨ Ý-t type¨
-                   Ýhost | addrlist namelist¨ ...
+usage: ssh-keyscan -f file -p port -T timeout -t type
+                   host | addrlist namelist ...
 ```
 
 KEYGEN
@@ -1897,27 +2039,27 @@ ssh-keygen help
 ```
 
 ```
-usage: ssh-keygen Ýoptions¨
-  ssh-keygen Ý-q¨ Ý-b bits¨ Ý-t type¨ Ý-o¨ Ý-a rounds¨ Ý-N new_passphrase¨ Ý-C comment¨ Ý-f output_keyfile¨
-  ssh-keygen -p Ý-P old_passphrase¨ Ý-N new_passphrase¨ Ý-f keyfile¨
-  ssh-keygen -i Ý-m key_format¨ Ý-f input_keyfile¨
-  ssh-keygen -e Ý-m key_format¨ Ý-f input_keyfile¨
-  ssh-keygen -e Ý-m key_format¨ Ý-f input_keyfile¨
-  ssh-keygen -y Ý-f input_keyfile¨
-  ssh-keygen -c Ý-P passphrase¨ Ý-C comment¨ Ý-f keyfile¨
-  ssh-keygen -l Ý-v¨ Ý-E fingerprint_hash¨ Ý-f input_keyfile¨
-  ssh-keygen -B Ý-f input_keyfile¨
-  ssh-keygen -F hostname Ý-f known_hosts_file¨ Ý-l¨
-  ssh-keygen -H Ý-f known_hosts_file¨
-  ssh-keygen -R hostname Ý-f known_hosts_file¨
-  ssh-keygen -r hostname Ý-f input_keyfile¨ Ý-g¨
-  ssh-keygen -G output_file Ý-v¨ Ý-b bits¨ Ý-M memory¨ Ý-S start_point¨
-  ssh-keygen -T output_file -f input_file Ý-v¨ Ý-a rounds¨ Ý-J num_lines¨ Ý-j start_line¨ Ý-K checkpt¨ Ý-W generator¨
-  ssh-keygen -s ca_key -I certificate_identity Ý-h¨ Ý-U¨ Ý-n principals¨ Ý-O option¨ Ý-V validity_interval¨ Ý-z serial_number¨ file
+usage: ssh-keygen options
+  ssh-keygen -q -b bits -t type -o -a rounds -N new_passphrase -C comment -f output_keyfile
+  ssh-keygen -p -P old_passphrase -N new_passphrase -f keyfile
+  ssh-keygen -i -m key_format -f input_keyfile
+  ssh-keygen -e -m key_format -f input_keyfile
+  ssh-keygen -e -m key_format -f input_keyfile
+  ssh-keygen -y -f input_keyfile
+  ssh-keygen -c -P passphrase -C comment -f keyfile
+  ssh-keygen -l -v -E fingerprint_hash -f input_keyfile
+  ssh-keygen -B -f input_keyfile
+  ssh-keygen -F hostname -f known_hosts_file -l
+  ssh-keygen -H -f known_hosts_file
+  ssh-keygen -R hostname -f known_hosts_file
+  ssh-keygen -r hostname -f input_keyfile -g
+  ssh-keygen -G output_file -v -b bits -M memory -S start_point
+  ssh-keygen -T output_file -f input_file -v -a rounds -J num_lines -j start_line -K checkpt -W generator
+  ssh-keygen -s ca_key -I certificate_identity -h -U -n principals -O option -V validity_interval -z serial_number¨ file
 ...
-  ssh-keygen -L Ý-f input_keyfile¨
+  ssh-keygen -L -f input_keyfile
   ssh-keygen -A
-  ssh-keygen -k -f krl_file Ý-u¨ Ý-s ca_public¨ Ý-z version_number¨ file ...
+  ssh-keygen -k -f krl_file -u -s ca_public -z version_number file ...
   ssh-keygen -Q -f krl_file file ...
 Options:
   -A          Generate non-existent host keys for all key types.
