@@ -58,6 +58,7 @@ This document is meant to be a reference guide for zOS practicioners. Oriented m
 
 [VPS](#vps)
 
+[SMF](#smf)
 
 ## Useful Commands (NOT Communications Server)
 
@@ -1394,6 +1395,53 @@ Example: F VPS,END
 Terminate VPS normally
 
 [INDEX](#index)
+
+------------------------------------------------
+
+## SMF
+
+https://www.ibm.com/docs/en/zos/2.1.0?topic=smf-records
+https://www.ibm.com/docs/en/zos/2.1.0?topic=analyzer-collecting-smf-records
+https://www.ibm.com/docs/en/zos/2.4.0?topic=smf-record-general-information-best-practices
+https://www.ibm.com/docs/en/zos/2.4.0?topic=statements-smfconfig-statement
+
+SMF118
+https://www.ibm.com/docs/en/zos/2.3.0?topic=reference-type-118-smf-records
+https://www.pacsys.com/smf/smf118_v1r13.htm
+
+SMF118 Subtypes
+https://www.ibm.com/docs/en/zos/2.1.0?topic=records-standard-subtype-record-numbers
+
+Subtype 76
+https://www.ibm.com/docs/en/zos/2.1.0?topic=records-record-type-118-76-tcpip-statistics
+
+SMF119 Format
+https://www.ibm.com/docs/en/zos/2.1.0?topic=records-common-type-119-smf-record-format#commonamf
+
+SMF119 Subtypes
+https://www.ibm.com/docs/en/zos/2.1.0?topic=records-smf-119-record-subtypes
+
+Subtype 21
+https://www.ibm.com/docs/en/zos/2.1.0?topic=t1sr-tn3270e-telnet-server-sna-session-termination-record-subtype-21#serversna
+
+Subtype 23
+https://www.ibm.com/docs/en/zos/2.1.0?topic=t1sr-tso-telnet-client-connection-termination-record-subtype-23#telnetcc
+
+Subtype 77
+https://www.ibm.com/docs/en/zos/2.1.0?topic=records-record-type-119-77-tcpip-statistics
+
+
+E35
+https://www.ibm.com/docs/en/zos/2.4.0?topic=exits-e35-user-exit-changing-records
+
+## ICETOOL
+
+https://www.ibm.com/docs/kk/zos/2.1.0?topic=do-operand-descriptions-2
+
+
+
+[INDEX](#index)
+
 -----------------------------------
 
 # FILE TRANSFERS
@@ -1959,6 +2007,21 @@ https://www.ibm.com/docs/en/zos/2.3.0?topic=daemon-ways-start-sshd-as-stand-alon
 # RACF
 
 ## Common
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=reference-racf-command-syntax
+
+https://www.ibm.com/docs/en/zos/2.2.0?topic=reference-racf-tso-commands
+
+Roles:
+
+https://www.ibm.com/docs/en/zos/2.2.0?topic=guide-racf-auditor
+
+https://www.ibm.com/products/zsecure-audit
+
+https://www.ibm.com/docs/en/szs/2.2.1?topic=racf-overview
+
+
+
 
 ```
 TSO LU
