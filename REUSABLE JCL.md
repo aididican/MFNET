@@ -478,6 +478,7 @@ https://www.ibm.com/docs/en/zos/2.1.0?topic=profile-smfinit-smfterm-statements
 
 Type 20
 
+```
 //STEP1  EXEC  PGM=ICETOOL                          
 //TOOLMSG  DD SYSOUT=*                              
 //DFSMSG   DD SYSOUT=*                              
@@ -520,13 +521,13 @@ DISPLAY FROM(SORTSMF) LIST(VREPT) -
          AND,7,4,BI,GT,0), 
          AND,11,4,PD,GT,0) 
   END              
-
+```
 
 
 Type 21
 
 
-
+```
 DISPLAY FROM(SORTSMF) LIST(VREPT) -                
        BETWEEN(0) -                                
        HEADER('TIME') ON(7,4,TM1,E'99:99:99') -    
@@ -552,3 +553,4 @@ DISPLAY FROM(SORTSMF) LIST(VREPT) -
          AND,7,4,BI,GT,0),                            
          AND,11,4,PD,GT,0)                            
   END                           
+```
