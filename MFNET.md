@@ -114,16 +114,6 @@ This document is meant to be a reference guide for zOS practicioners. Oriented m
 
 
 
-
-
-
-
-
-
-
-
-
-
 ------------------------------
 ------------------------------
 ------------------------------
@@ -488,6 +478,17 @@ MOD VT=x,AVAIL
 MOD VT=x,UNAVAIL
 ```
 
+RELOAD
+
+https://techdocs.broadcom.com/us/en/ca-mainframe-software/traditional-management/ca-tpx-session-management/5-4/operating/operator-commands/reload-command.html
+
+RELOAD PROF=
+RELOAD TABLE=
+RELOAD ACT=
+RELOAD SMRT=smrtname
+D U,SUMM
+S TPX,SMRT=smrtname
+
 [INDEX](#index)
 -----------------------------------------
 
@@ -581,6 +582,9 @@ Display TCPIP
 ,CONNection
 ,INACTLUS
 
+PORT and PARM Definitions
+https://www.ibm.com/docs/en/zos/2.1.0?topic=security-transport-layer
+
 
 LU NAMES
 https://www.ibm.com/docs/en/zos/2.1.0?topic=profile-rules-lu-name-specification
@@ -591,6 +595,10 @@ https://www.ibm.com/docs/en/zos/2.4.0?topic=ttss-secure-non-secure-connections-u
 https://www.ibm.com/docs/en/zos/2.4.0?topic=ssl-tn3270e-telnet-server-security
 https://www.ibm.com/docs/en/zos/2.2.0?topic=profile-keyring-statement
 https://www.ibm.com/docs/en/zos/2.4.0?topic=ttss-secure-non-secure-connections-using-single-telnet-port#security_tn3270e_mixed_traffic__secsing
+
+SMF Records
+
+https://www.ibm.com/docs/en/zos/2.1.0?topic=profile-smfinit-smfterm-statements
 
 [INDEX](#index)
 ------------------------------------------------
@@ -855,12 +863,24 @@ SACONFIG ENABLED COMMUNITY public AGENT 161
 
 ATTLS
 
+pasearch Command
+https://www.ibm.com/docs/en/zos/2.1.0?topic=information-zos-unix-pasearch-command-display-policies
+
 Implement TLS 1.2 without ATTLS:
 https://www.ibm.com/support/pages/zos-communications-server-tls-needed-implement-tls-v12
 
 Guide:
 https://www.ibm.com/docs/en/zos/2.2.0?topic=security-transport-layer
 https://www.ibm.com/docs/en/rtw/9.0.1?topic=clip-setting-up-tls#ritzos_attls__attls5
+
+Setting Up RACF Permits for Stack Access (EZZ4248E TCPIP waiting for PAGENT):
+https://www.ibm.com/support/pages/during-tls-startup-message-ezz4248e-written-console-not-released
+
+For Clients:
+https://www.ibm.com/docs/en/zos/2.2.0?topic=tls-configuring-client-systems
+
+For Servers:
+https://www.ibm.com/docs/en/zos/2.2.0?topic=tls-configuring-server-system
 
 For TN3270:
 https://www.ibm.com/support/pages/system/files/inline-files/An_Introduction_to_AT-TLS_for_FTP_and_TN3270.pdf
@@ -1044,6 +1064,9 @@ HEAPPOOLS64(ON,
 
 ## GSKKYMAN
 
+CLI Commands
+https://www.ibm.com/docs/en/zos/2.1.0?topic=syntax-gskkyman-command-line-mode-examples
+gskkyman -dc -k filename 
 
 gskkyman
 https://www.ibm.com/docs/en/zos/2.1.0?topic=syntax-gskkyman
@@ -1149,6 +1172,14 @@ https://docs.bmc.com/docs/mcdv630/using-the-logon-command-856648226.html
 
 
 CT TRACE:
+
+CT Writer PROC:
+
+//CTWTR PROC
+//IEFPROC  EXEC PGM=ITTTRCWR,REGION=5M,TIME=1440
+//TRCOUT01 DD DSNAME=yourdsn,
+//            UNIT=SYSDA,DCB=(DSORG=PS),
+//            SPACE=(4096,(1024,100),,CONTIG),DISP=(NEW,CATLG)
 
 https://www.ibm.com/docs/en/ims/13.1.0?topic=commands-trace-ct-command
 https://www.ibm.com/docs/en/zos/2.1.0?topic=parameters-statementsparameters-ctncccxx
@@ -1465,6 +1496,15 @@ https://www.ibm.com/docs/en/zos/2.1.0?topic=smf-records
 https://www.ibm.com/docs/en/zos/2.1.0?topic=analyzer-collecting-smf-records
 https://www.ibm.com/docs/en/zos/2.4.0?topic=smf-record-general-information-best-practices
 https://www.ibm.com/docs/en/zos/2.4.0?topic=statements-smfconfig-statement
+
+DISPLAY SMF FILES IN USE
+https://www.ibm.com/docs/en/zos/2.4.0?topic=command-displaying-smf-data-smf
+
+DYNAMICALLY ADD SMF RECORDS
+https://www.ibm.com/docs/en/zos/2.2.0?topic=member-changing-smf-recording
+
+DUMP SMF
+https://www.ibm.com/docs/en/zos/2.1.0?topic=ifasmfdp-running-smf-data-set-dump-program
 
 SMF118
 https://www.ibm.com/docs/en/zos/2.3.0?topic=reference-type-118-smf-records
@@ -2154,6 +2194,17 @@ https://www.ibm.com/docs/en/zos/2.4.0?topic=reference-racf-command-syntax
 
 https://www.ibm.com/docs/en/zos/2.2.0?topic=reference-racf-tso-commands
 
+Commands:
+
+RLIST
+https://www.ibm.com/docs/en/zos/2.4.0?topic=syntax-rlist-list-general-resource-profile#rlist
+
+RACDCERT
+https://www.ibm.com/docs/en/zos/2.4.0?topic=syntax-racdcert-manage-racf-digital-certificates#radcertg
+
+Refresh Classes:
+https://www.ibm.com/docs/en/zos/2.4.0?topic=racf-refreshing-classes
+
 Roles:
 
 https://www.ibm.com/docs/en/zos/2.2.0?topic=guide-racf-auditor
@@ -2161,8 +2212,6 @@ https://www.ibm.com/docs/en/zos/2.2.0?topic=guide-racf-auditor
 https://www.ibm.com/products/zsecure-audit
 
 https://www.ibm.com/docs/en/szs/2.2.1?topic=racf-overview
-
-
 
 
 ```
@@ -2201,6 +2250,10 @@ Tsolib activate uncond ddname=('zdp.load')
 
 ## Certificates
 
+Certificate Work:
+
+https://www.ibm.com/docs/en/zos/2.1.0?topic=applications-setting-up-your-certificate-environment
+
 ### RACF INSERT CERTIFICATE:
 
 ```
@@ -2213,6 +2266,18 @@ WITHLABEL('label')
 ```
 RACDCERT ID(id) REMOVE(CERTAUTH LABEL('label') RING(ringname)
 ```
+
+ACTIVATE CLASSES:
+
+'''
+SETROPTS CLASSACT(DIGTCERT DIGTRING)
+'''
+
+REFRESH CLASSES:
+
+'''
+SETROPTS RACLIST(DIGTCERT DIGTRING) REFRESH
+'''
 
 EXPORT CERTAUTH CERT:
 
@@ -2233,6 +2298,16 @@ RACDCERT EXPORT(LABEL('CERTLABEL')) -
 ID(IBMTCP) DSN(HLQ.CERT)
 /*
 ```
+
+ROOT Certificate Creation:
+
+'''
+RACDCERT CERTAUTH GENCERT +      
+    SUBJECTSDN(CN('ROOT')) +
+    WITHLABEL('ROOT') +      
+    KEYUSAGE(CERTSIGN) +         
+    NOTAFTER(DATE(yyyy-mm-dd))   
+'''
 
 Self Signed Certificate Creation:
 
@@ -2521,247 +2596,6 @@ FTP
 -----------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------
 
-#### EXAMPLES
-
-SDSF Commands:
-
-```
-//STEP01 EXEC PGM=SDSF,PARM='++30,256'
-//ISFOUT   DD SYSOUT=*
-//SYSUDUMP DD SYSOUT=*
-//SYSPRINT DD SYSOUT=*
-//SYSTSPRT DD SYSOUT=*
-//SYSOUT   DD SYSOUT=*
-//DATAOUT  DD DSN=HLQ.QL,
-//            DISP=(SHR,KEEP,KEEP)
-//ISFIN    DD *
-SET CONSOLE BATCH
-SET DELAY 100
-/D IPLINFO
-/D M=CPU
-/D XCF
-/D SYMBOLS
-/D NET,ID=VTAM
-/D NET,CPCP
-/D NET,VTAMOPTS
-/D TCPIP,,N,HOME
-/D TCPIP,,N,DEV
-/D TCPIP,,N,CONFIG
-/D TCPIP,,N,ROUTE
-/D TCPIP,,N,CONN,MAX=*
-/D TCPIP,,OMPROUTE,OSPF,LIST,ALL
-/D NET,TRL
-/D NET,CDRMS
-/D NET,TOPO,LIST=ALL
-/D TCPIP,,OSAINFO,INTFNAME=OSA
-/D TCPIP,,N,VIPADCFG,DETAIL
-PRINTFILE DATAOUT
-ULOG
-PRINT
-PRINT CLOSE
-END
-```
-
-IEBCOPY - Copy MODULEs
-
-```
-//STEP1    EXEC PGM=IEBCOPY
-//SYSPRINT DD  SYSOUT=*
-//MEMIN    DD DSN=HQL.QL(MEMBER),
-//         DISP=SHR
-//MEMOUT   DD DSN=HLQ.QL2(MEMBER),
-//         DISP=SHR
-//SYSIN    DD *
-COPYOPER   COPY    OUTDD=MEMOUT
-                   INDD=MEMIN
-           SELECT  MEMBER=((MEMBER,,R))
-```
-
-ADRDSSU
-
-```
-//DUMP     EXEC PGM=ADRDSSU
-//SYSPRINT DD SYSOUT=*
-//DDOUT    DD DSN=SHRSYS.IODF.DMP1,DISP=(,CATLG),
-//         SPACE=(CYL,(100,100),RLSE),UNIT=3390
-//SYSIN    DD *
-  DUMP                                     -
-      OUTDDNAME(DDOUT)                     -
-     DATASET(INCLUDE(IODF.CLUSTER)) -
-  TOL(ENQF)
-/*
-```
-		   
-IDCAMS - COPY to GDG
-
-```
-//STEP2    EXEC PGM=IDCAMS
-//SYSPRINT DD  SYSOUT=*
-//IN       DD DSN=HLQ.QL,
-//         DISP=SHR
-//OUT      DD DSN=HLQ.GDGBASE(+1),
-//         DISP=(NEW,CATLG,),
-//         SPACE=(TRK,(15,10)),
-//         DCB=(BLKSIZE=27920,LRECL=80,RECFM=FB)
-//SYSIN    DD *
-   REPRO IFILE(IN) OFILE(OUT) REPLACE
-/*
-```
-
-GDG BATCH
-
-```
-//STEP1    EXEC PGM=IDCAMS
-//SYSPRINT DD SYSOUT=*
-//SYSIN    DD *
- DEFINE GDG(NAME(HLQ.GDGBASE) -
- LIMIT(10) -
- NOEMPTY -
- SCRATCH)
-```
-
-FTP BATCH
-
-```
-//FTP1A    EXEC PGM=FTP,COND=(0,NE),REGION=0M,
-//* Choose the remote host on PARM and port (after a space)
-//         PARM='hostname (EXIT TIMEOUT 720'
-//* You can use a NETRC to grab the credentials
-//* If you are using NETRC you don't need to input user and password
-//NETRC    DD  DISP=SHR,DSN=HLQ.QL(NETRC)
-//SYSPRINT DD SYSOUT=*
-//* You can use a different FTPDATA file for the transfer
-//SYSFTPD  DD  DISP=SHR,DSN=HLQ.QL(FTPDATA)
-//OUTPUT   DD SYSOUT=*
-//INPUT    DD DUMMY
-Ls
-```
-
-NETRC:
-machine iphostname login user password pass
-
-
-FTPS BATCH (WITHOUT AT-TLS)
-
-```
-//FTP1A    EXEC PGM=FTP,COND=(0,NE),REGION=0M,
-//* Choose the remote host on PARM and port (after a space)
-//         PARM='hostname (EXIT TIMEOUT 720'
-//* You can use a NETRC to grab the credentials
-//* If you are using NETRC you don't need to input user and password
-//CCEEOPTS DD *
-ENVAR('GSK_PROTOCOL_TLSV1_2=1',
-GSK_V3_CIPHER_SPECS=3D39383735)
-//NETRC    DD  DISP=SHR,DSN=HLQ.QL(NETRC)
-//SYSPRINT DD SYSOUT=*
-//* You can use a different FTPDATA file for the transfer
-//SYSFTPD  DD  DISP=SHR,DSN=HLQ.QL(FTPDATA)
-//OUTPUT   DD SYSOUT=*
-//INPUT    DD DUMMY
-Ls
-```
-
-
-IKJEFT1B - EXECUTE REXX from external Library
-
-```
-//REPOFTP   EXEC PGM=IKJEFT1B,TIME=1439                                          
-//SYSEXEC   DD  DISP=SHR,DSN=HLQ.QL                                 
-//SYSTSPRT  DD  SYSOUT=*                                                        
-//SYSTSIN   DD  *                                                               
-  %REXXMEM                                                                     
-/*   
-```
-
-IKJEFT01 - TSO EXEC
-
-```
-//TSOEX     EXEC PGM=IKJEFT01                                                   
-//SYSEXEC   DD DSN=HLQ.QL,DISP=SHR                                   
-//SYSTSPRT  DD SYSOUT=*                                                         
-//SYSPRINT  DD SYSOUT=*                                                         
-//SYSTSIN   DD *                                                                
-  EXEC 'HLQ.QL(REXXMEM)'                                              
-//     
-```
-
-IPCS BATCH
-
-```
-//SNIFFER  EXEC PGM=IKJEFT01,DYNAMNBR=50
-//STEPLIB  DD  DISP=SHR,DSN=SYS1.MIGLIB
-//IPCSPARM DD  DISP=SHR,DSN=SYS1.PARMLIB
-//         DD  DISP=SHR,DSN=SYS1.IBM.PARMLIB
-//IPCSDDIR DD  DISP=SHR,DSN=HLQ.IPCS
-//SYSPROC  DD  DISP=SHR,DSN=SYS1.SBLCLI0
-//SYSTSPRT DD  SYSOUT=*
-//IPCSTOC  DD  SYSOUT=*
-//IPCSPRNT DD  SYSOUT=*
-//SNIFFER  DD  DSN=HLQ.SNIFFER,DISP=(NEW,CATLG),
-//                             UNIT=3390,RETPD=30,SPACE=((CYL,(100,100)),
-//                             DCB=(RECFM=VB,LRECL=27994,BLKSIZE=0)
-//*
-//SYSTSIN       DD *
-  IPCS
-  CTRACE DSN('HLQ.CTTRACE') -
-        COMP(SYSTCPDA) SUB(TCPIP)) FULL -
-        OPTIONS((PACKETTRACE SNIFFER(27956 ETHERNET) NOREASSEMBLY STATS))
-  END
-```
-
-PING BATCH
-
-```
-//STEP01    EXEC  PGM=IKJEFT01
-//SYSTSPRT  DD  DISP=SHR,DSN=output
-//SYSTSIN   DD  *
-PING 8.8.8.8
-```
-
-SFTP BATCH
-
-```
-//SFTPSTEP  EXEC PGM=BPXBATCH
-//SYSPRINT  DD SYSOUT=*
-//STDOUT    DD SYSOUT=*
-//STDERR    DD SYSOUT=*
-//STDPARM   DD *
-sh sftp -P port
--o "StrictHostKeyChecking no"
-userid@server
-```
-
-SMTP
-
-When sending Attachments, SYSUT1 needs to be in a dataset and it has to have the same LRECL as the file you 
-are attaching
-
-```
-//SMTPTEST  EXEC PGM=IEBGENER                       
-//SYSPRINT  DD  SYSOUT=*                            
-//SYSUT2    DD  SYSOUT=(B,SMTP)                     
-//SYSIN     DD  DUMMY                               
-//SYSUT1    DD  *                                   
-HELO sysname                                          
-MAIL FROM:MAINFRAME@youraccount.COM             
-RCPT TO:yourmail@youraccount.COM       
-RCPT TO:yourseniormail@youraccount.COM                  
-DATA                                               
-FROM: MAINFRAME                                    
-TO:yourmail@youraccount.COM       
-TO:yourseniormail@youraccount.COM                  
-SUBJECT: TEST                                      
-MIME-VERSION: 1.0                                  
-CONTENT-TYPE: TEXT/PLAIN                           
-CONTENT-DISPOSITION: ATTACHMENT; FILENAME=TEST.TXT 
-//     DD DISP=SHR,DSN=yourdataset
-```
-
-NOTE: make sure the Record Format and Record Length are the same between the PDS in which you have this member and "yourdataset" DCB parameters.      
-
-https://www.ibm.com/support/pages/outbound-email-attachments-using-smtp-or-cssmtp-zos
-
-
 
 
 ---------------------------------------------------------------
@@ -2800,6 +2634,13 @@ diff -R /etc/ /u/users/user/etc/
 
 SETPROG 
 LLA REFRESH
+
+--------------------------------------------
+
+PAGE DATASETS
+
+D ASM
+PA NONVIO=SYS1.NEW.PAGE
 
 --------------------------------------------
 
