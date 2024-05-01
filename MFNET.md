@@ -2066,6 +2066,7 @@ ssh-keygen -t dsa
 
 ```
 ssh-keygen -i -f testkey.putty.pub >>  /USERIDHOME/.ssh/authorized_keys
+ssh-keygen -i -f authorized_keys >>  /u/dbbg/.ssh/authorized_keys2
 ```
 
 zOS Open SSH uses BASE64 encoding. 
@@ -2422,6 +2423,15 @@ $KEY(IRR) TYPE(FAC)
 
 $KEY(APPLID) TYPE(APL)
  UID(ID) ALLOW
+
+ Export {logonid|logonid.suffix}
+       DSname(data-set-name)
+       [Label(label)]
+       [Format(CERTDER|CERTB64|PKCS12DER|PKCS12B64|PKCS7DER|PKCS7B64)]
+       [Password(password)]
+       
+Command Input:
+EXPORT FRANK01.CERT DSNAME(MYCERT)
 
 https://www.ibm.com/docs/en/zos/2.1.0?topic=gime-importing-certificate-from-file-as-trusted-ca-certificate
 
