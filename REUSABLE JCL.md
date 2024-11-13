@@ -72,8 +72,13 @@ https://ibmmainframes.com/references/disk.html
 
 https://www.ibm.com/docs/en/zos/2.2.0?topic=requirements-step-1-number-tracks-required
 
-//DD1 DD DSNAME=ALP,DISP=(,KEEP),VOLUME=SER=44321, // UNIT=3400-6,DCB=(RECFM=FB,LRECL=240,BLKSIZE=960, // DEN=1,TRTCH=C)
+```
+//DD1 DD DSNAME=ALP,DISP=(,KEEP),VOLUME=SER=44321, 
+// UNIT=3400-6,DCB=(RECFM=FB,LRECL=240,BLKSIZE=960, 
+// DEN=1,TRTCH=C)
+```
 
+```
 1 Cyl = 15 Tracks 
 1 Track = 25 Blocks
 
@@ -83,6 +88,7 @@ so 1000 cylinders = 839,940 * 1000
 1000 cylinders = (839,940 * 1000 ) / 1,048,576  = 801.029 MB
 1 terabyte =  2 to the 40th power or approximately a thousand billion bytes (that is, a thousand gigabytes).
 1000 cylinders = (839,940 * 1000 ) / (1,048,576 * 1,048,576 )  = .000763 Terabytes
+```
 
 SET statement
 
@@ -93,6 +99,7 @@ TYPRUN
 https://www.ibm.com/docs/en/zos/2.2.0?topic=parameter-example-typrun
 
 https://www.ibm.com/docs/en/zos/2.2.0?topic=statement-typrun-parameter
+
 S PROC,TYP=EXEC 
 
 [INDEX](#index)
@@ -102,14 +109,19 @@ S PROC,TYP=EXEC
 #### FileAid
 
 https://docs.bmc.com/docs/bcfamvs/2101/sample-jcl-statements-1014793496.html
+
 https://www.techagilist.com/mainframe/jcl/fileaid-in-batch-mode-with-examples/
 
 --------------------------------------------
 
 #### SDSF
+
 https://www.ibm.com/docs/en/zos/2.1.0?topic=reference-jcl-command-statement
+
 https://www.ibm.com/docs/en/zos/2.3.0?topic=d-syntax-7
+
 https://www.ibm.com/docs/en/zos/2.3.0?topic=d-examples-command-statement
+
 https://www.ibm.com/docs/en/zos/2.3.0?topic=batch-invoking-sdsf-in
 
 --------------------------------------------
@@ -117,9 +129,13 @@ https://www.ibm.com/docs/en/zos/2.3.0?topic=batch-invoking-sdsf-in
 #### BPXBATCH:
 
 https://www.ibm.com/docs/en/zos/2.1.0?topic=utility-invoking-bpxbatch-in-batch-job
+
 https://www.ibm.com/docs/en/zos/2.1.0?topic=command-entering-long-shell
+
 https://www.ibm.com/docs/en/zos/2.1.0?topic=job-example-running-shell-command-in-batch
+
 https://www.ibm.com/docs/en/zos/2.1.0?topic=bpxbatch-ways-define-stdparm
+
 https://www.ibm.com/docs/en/zos/2.1.0?topic=utility-passing-parameter-data-bpxbatch#batstdparm
 
 -----------------------------------------------
@@ -127,7 +143,9 @@ https://www.ibm.com/docs/en/zos/2.1.0?topic=utility-passing-parameter-data-bpxba
 #### REXX
 
 https://ibmmainframes.com/about51007.html
+
 https://www.ibm.com/docs/en/zos/2.1.0?topic=ir-using-irxjcl-run-rexx-exec-in-mvs-batch
+
 https://www.ibm.com/docs/en/zos/2.1.0?topic=routine-exec-block-execblk
 
 -----------------------------------------------
@@ -137,11 +155,15 @@ https://www.ibm.com/docs/en/zos/2.1.0?topic=routine-exec-block-execblk
 Use IDCAMS.
 
 REPRO to create another. Use LIKE to replicate.
+
 DELETE
+
 LISTCAT ALL ENTRIES(DATASET-NAME) 
 
 https://www.ibm.com/docs/en/zos/2.4.0?topic=de-delete-key-sequenced-vsam-cluster-in-catalog-example-6
+
 https://www.ibm.com/docs/en/zos/2.4.0?topic=de-delete-key-sequenced-vsam-cluster-in-catalog-example-6
+
 https://www.ibm.com/docs/en/zos-basic-skills?topic=sample-reusable-jcl-deleting-some-vsam-clusters
 
 
@@ -168,12 +190,15 @@ HTTPS
  ```
 
 RACF RING: 
+
 keyring="USERID/RINGLABEL"
 
 ACF2 RING:
+
 keyring="USERID/RINGLABEL"
 
 USER.RING  LABEL=RINGNAME
+
 keyring="USER/RINGNAME"
 
 
@@ -189,8 +214,14 @@ FTP
 
 -----------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------
+# EXAMPLES
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+## ACF2
 
 ### CERTIFICATE INVENTORY ACF2
+
 
 ```
 //STEP01   EXEC PGM=IKJEFT01
@@ -212,6 +243,62 @@ T PROF(USER) DIV(KEYRING)
 L LIKE(-)
 ```
 
+### USER INVENTORY ACF2
+
+```
+//STEP01   EXEC PGM=IKJEFT01
+//SYSTSPRT DD DISP=SHR,DSN=yourdsn
+//SYSTSIN  DD *
+ACF
+L LIKE(-)
+```
+
+### USER PASSWORD CHANGE ACF2
+
+```
+//STEP01   EXEC PGM=IKJEFT01
+//SYSTSPRT DD DISP=SHR,DSN=yourdsn
+//SYSTSIN  DD *
+ACF
+CHANGE userid PASS(password)
+```
+
+
+### CERTIFICATE INSERT
+### CERTIFICATE CONNECT
+### RDA RULE
+### IRR RULE
+
+```
+//STEP01   EXEC PGM=IKJEFT01
+//SYSTSPRT DD DISP=SHR,DSN=yourdsn
+//SYSTSIN  DD *
+ACF
+
+```
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+### ADRDSSU
+
+```
+//DUMP     EXEC PGM=ADRDSSU
+//SYSPRINT DD SYSOUT=*
+//DDOUT    DD DSN=SHRSYS.IODF.DMP1,DISP=(,CATLG),
+//         SPACE=(CYL,(100,100),RLSE),UNIT=3390
+//SYSIN    DD *
+  DUMP                                     -
+      OUTDDNAME(DDOUT)                     -
+     DATASET(INCLUDE(IODF.CLUSTER)) -
+  TOL(ENQF)
+/*
+```
+	
+-----------------------------------------------------------------------------------------------------------------------------
+
+
 ### SDSF Commands:
 
 ```
@@ -226,30 +313,16 @@ L LIKE(-)
 //ISFIN    DD *
 SET CONSOLE BATCH
 SET DELAY 100
-/D IPLINFO
-/D M=CPU
-/D XCF
-/D SYMBOLS
-/D NET,ID=VTAM
-/D NET,CPCP
-/D NET,VTAMOPTS
-/D TCPIP,,N,HOME
-/D TCPIP,,N,DEV
-/D TCPIP,,N,CONFIG
-/D TCPIP,,N,ROUTE
-/D TCPIP,,N,CONN,MAX=*
-/D TCPIP,,OMPROUTE,OSPF,LIST,ALL
-/D NET,TRL
-/D NET,CDRMS
-/D NET,TOPO,LIST=ALL
-/D TCPIP,,OSAINFO,INTFNAME=OSA
-/D TCPIP,,N,VIPADCFG,DETAIL
-PRINTFILE DATAOUT
 ULOG
+/D IPLINFO
+PRINTFILE DATAOUT
 PRINT
 PRINT CLOSE
 END
 ```
+
+-----------------------------------------------------------------------------------------------------------------------------
+
 
 ### IEBCOPY - Copy MODULEs
 
@@ -266,21 +339,20 @@ COPYOPER   COPY    OUTDD=MEMOUT
            SELECT  MEMBER=((MEMBER,,R))
 ```
 
-### ADRDSSU
+### IEBCOPY - COMPRESS
 
 ```
-//DUMP     EXEC PGM=ADRDSSU
-//SYSPRINT DD SYSOUT=*
-//DDOUT    DD DSN=SHRSYS.IODF.DMP1,DISP=(,CATLG),
-//         SPACE=(CYL,(100,100),RLSE),UNIT=3390
-//SYSIN    DD *
-  DUMP                                     -
-      OUTDDNAME(DDOUT)                     -
-     DATASET(INCLUDE(IODF.CLUSTER)) -
-  TOL(ENQF)
-/*
+//COMPRESS    EXEC    PGM=IEBCOPY
+//A    DD  DSNAME='Pacanowska',DISP=OLD
+//B    DD  DSNAME='Pacanowska',DISP=OLD
+//SYSIN DD *
+       COPY OUTDD=B,INDD=A
 ```
-		   
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+## IDCAMS
+
 ### IDCAMS - COPY to GDG
 
 ```
@@ -319,7 +391,7 @@ COPYOPER   COPY    OUTDD=MEMOUT
  VOLUME(volume))             
 ```
 
-### GDG BATCH
+### IDCAMS - GDG BATCH
 
 ```
 //STEP1    EXEC PGM=IDCAMS
@@ -330,6 +402,48 @@ COPYOPER   COPY    OUTDD=MEMOUT
  NOEMPTY -
  SCRATCH)
 ```
+
+### IDCAMS - CREATE INDEXED VSAM FILES
+
+```
+//VSAM EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSIN DD *
+ DEFINE CLUSTER(                                   -
+ NAME(yourcluster)                -
+ INDEXED                                            -
+ NOIMBED                                            -
+ REUSE                                              -
+ NOREPLICATE                                        -
+ FREESPACE(10 5)                                   -
+ KEYS (27 0)                                        -
+ RECORDSIZE(32 78) -
+ SHAREOPTIONS(2)) -
+ DATA                                               -
+ (CONTROLINTERVALSIZE(4096)                         -
+ TRK(500)                                           -
+ NAME(yourcluster.DATA))
+```
+
+### IDCAMS - CREATE ZFS FILE
+
+```
+//FILECREA EXEC PGM=IDCAMS,REGION=0M 
+//SYSPRINT DD SYSOUT=* 
+//SYSIN    DD *
+    DEFINE CLUSTER( - 
+             NAME(yourzfs) -     
+             VOLUME(volume) -
+             LINEAR -
+             CYL(100 20) - 
+             SHAREOPTIONS(3))       
+/*  
+//FORMAT   EXEC PGM=IOEAGFMT,REGION=0M,COND=(0,LT,FILECREA),
+//            PARM='-aggregate yourzfs -compat'
+//SYSPRINT DD SYSOUT=*
+```
+
+-----------------------------------------------------------------------------------------------------------------------------
 
 ### FTP BATCH
 
@@ -349,6 +463,7 @@ Ls
 ```
 
 NETRC:
+
 machine iphostname login user password pass
 
 
@@ -371,6 +486,8 @@ GSK_V3_CIPHER_SPECS=3D39383735)
 //INPUT    DD DUMMY
 Ls
 ```
+
+-----------------------------------------------------------------------------------------------------------------------------
 
 
 ### IKJEFT1B - EXECUTE REXX from external Library
@@ -420,6 +537,8 @@ Ls
   END
 ```
 
+-----------------------------------------------------------------------------------------------------------------------------
+
 ### PING BATCH
 
 ```
@@ -428,6 +547,8 @@ Ls
 //SYSTSIN   DD  *
 PING 8.8.8.8
 ```
+
+-----------------------------------------------------------------------------------------------------------------------------
 
 ### SFTP BATCH
 
@@ -442,10 +563,11 @@ sh sftp -P port
 userid@server
 ```
 
+-----------------------------------------------------------------------------------------------------------------------------
+
 ### SMTP
 
-When sending Attachments, SYSUT1 needs to be in a dataset and it has to have the same LRECL as the file you 
-are attaching
+When sending Attachments, SYSUT1 needs to be in a dataset and it has to have the same LRECL as the file you are attaching
 
 ```
 //SMTPTEST  EXEC PGM=IEBGENER                       
@@ -471,6 +593,8 @@ CONTENT-DISPOSITION: ATTACHMENT; FILENAME=TEST.TXT
 NOTE: make sure the Record Format and Record Length are the same between the PDS in which you have this member and "yourdataset" DCB parameters.      
 
 https://www.ibm.com/support/pages/outbound-email-attachments-using-smtp-or-cssmtp-zos
+
+-----------------------------------------------------------------------------------------------------------------------------
 
 ### SMF Records ICETOOL
 
@@ -525,7 +649,6 @@ DISPLAY FROM(SORTSMF) LIST(VREPT) -
 
 
 Type 21
-
 
 ```
 DISPLAY FROM(SORTSMF) LIST(VREPT) -                

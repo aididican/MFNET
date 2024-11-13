@@ -5,6 +5,28 @@
 This document is meant to be a reference guide for zOS practicioners. Oriented mostly to Communications Server configuration, troubleshooting and related applications.
 
 -----------------------------------------
+Check a Certificate Signing Request (CSR)
+openssl req -text -noout -verify -in CSR.csr
+Check a private key
+openssl rsa -in privateKey.key -check
+Check a certificate
+openssl x509 -in certificate.crt -text -noout
+Check a PKCS#12 file (.pfx or .p12)
+openssl pkcs12 -info -in keyStore.p12
+
+Check an MD5 hash of the public key to ensure that it matches with what is in a CSR or private key
+openssl x509 -noout -modulus -in certificate.crt | openssl md5
+openssl rsa -noout -modulus -in privateKey.key | openssl md5
+openssl req -noout -modulus -in CSR.csr | openssl md5
+Check an SSL connection. All the certificates (including Intermediates) should be displayed
+openssl s_client -connect www.paypal.com:443
+
+Convert a DER file (.crt .cer .der) to PEM
+openssl x509 -inform der -in certificate.cer -out certificate.pem
+Convert a PEM file to DER
+openssl x509 -outform der -in certificate.pem -out certificate.der
+Convert a PKCS#12 file (.pfx .p12) containing a private key and certificates to PEM
+openssl pkcs12 -in keyStore.pfx -out keyStore.pem -nodes
 
 # INDEX
 
@@ -885,8 +907,11 @@ https://www.ibm.com/docs/en/zos-basic-skills?topic=information-type-application-
 https://www.ibm.com/docs/en/zos/2.2.0?topic=environment-base-resolver-configuration-files
 
 GLOBALTCPIPDATA
+
 This statement is used to identify a specific resolver configuration file that contains the resolver configuration statements (NAMESERVER, HOSTNAME, and so on) that are to be applied globally to all IP applications.
+
 DEFAULTTCPIPDATA
+
 This statement is used to define a default resolver configuration file that is used as a last resort.
 
 https://www.ibm.com/docs/en/zos/2.3.0?topic=customization-configuring-profiletcpip
@@ -895,22 +920,28 @@ https://www.ibm.com/docs/en/zos/2.3.0?topic=customization-configuring-profiletcp
 The search order used to access the base resolver configuration file is as follows:
 
 GLOBALTCPIPDATA
+
 If defined, the resolver GLOBALTCPIPDATA setup statement value is used. For a description of the GLOBALTCPIPDATA statement, see The resolver and the global TCPIP.DATA file.
 
 The search continues for an additional configuration file. The search ends with the next file found.
 
 The value of the environment variable RESOLVER_CONFIG
+
 The value of the environment variable is used. This search will fail if the file does not exist or is allocated exclusively elsewhere.
 
 /etc/resolv.conf
 //SYSTCPD DD card
+
 The data set allocated to the ddname SYSTCPD is used. In the z/OS® UNIX environment, a child process does not have access to the SYSTCPD DD. This is because the SYSTCPD allocation is not inherited from the parent process over the fork() or exec function calls.
 
 userid.TCPIP.DATA
+
 userid is the user ID that is associated with the current security environment (address space or task/thread)
 
 SYS1.TCPPARMS(TCPDATA)
+
 DEFAULTTCPIPDATA
+
 If defined, the resolver DEFAULTTCPIPDATA setup statement value is used. For a description of the DEFAULTTCPIPDATA statement, see The resolver and the global TCPIP.DATA file.
 
 TCPIP.TCPIP.DATA
@@ -956,6 +987,7 @@ UNRESPONSIVETHRESHOLD(25)
 ## MAKESITE
 
 HOSTS FILE
+
 MAKESITE
 
 ```
@@ -965,6 +997,7 @@ MAKESITE HLQ=TCPIP,VOLSER=volser,UNIT=SYSDA
 https://www.ibm.com/docs/en/zos/2.1.0?topic=commands-makesite-command
 
 Format
+
 Read syntax diagramSkip visual syntax diagram
 ```
 >>-MAKESITE--+-----------+--,----------------------------------->
@@ -982,14 +1015,21 @@ Read syntax diagramSkip visual syntax diagram
 
 https://www.ibm.com/docs/en/zos-basic-skills?topic=information-search-order-resolver-configuration
 
-//SYSTCPD DD card. The data set allocated to the DDname SYSTCPD is used. In the z/OS UNIX environment, a child process does not have access to the SYSTCPD DD. This is because the SYSTCPD allocation is not inherited from the parent process over the fork() or exec function calls.
+//SYSTCPD DD card. 
+
+The data set allocated to the DDname SYSTCPD is used. In the z/OS UNIX environment, a child process does not have access to the SYSTCPD DD. This is because the SYSTCPD allocation is not inherited from the parent process over the fork() or exec function calls.
 userid.TCPIP.DATA. "userid" is the user ID that is associated with the current security environment (address space or task/thread). An MVS environment application could theoretically run without an associated user ID. If so, the job name would be used for this data set instead.
 
 SYS1.TCPPARMS(TCPDATA)
-DEFAULTTCPIPDATA. If defined, the resolver DEFAULTTCPIPDATA setup statement value is used.
+
+DEFAULTTCPIPDATA. 
+
+If defined, the resolver DEFAULTTCPIPDATA setup statement value is used.
+
 TCPIP.TCPIP.DATA
 
 As a batch job, you might use this JCL:
+
 //MAKESITE JOB ,TIME=2,NOTIFY=USER7
 //*
 //BATCH  EXEC PGM=MAKESITE,REGION=8000K,
@@ -1194,9 +1234,14 @@ https://www.ibm.com/docs/en/zos/2.4.0?topic=services-zos-cryptographic-system-ss
 https://www.ibm.com/docs/en/zos/2.4.0?topic=codes-ssl-function-return
 
 
-EZD1281I indicates that the TCP connection with the specified connection ID (CONNID) matched the specified Application Transparent Transport Layer Security (AT-TLS) rule. This CONNID will be used in all future AT-TLS messages for this connection. rule is the name of the TTLSRule that mapped this connection. stat is the AT-TLS status for the connection. The values for stat are:
+EZD1281I indicates that the TCP connection with the specified connection ID (CONNID) matched the specified Application Transparent Transport Layer Security (AT-TLS) rule. This CONNID will be used in all future AT-TLS messages for this connection. rule is the name of the TTLSRule that mapped this connection. stat is the AT-TLS status for the connection. 
+
+The values for stat are:
+
 Not Enabled if TTLSEnabled in the matching AT-TLS policy is set to OFF (AT-TLS security is active. Data might be encrypted, based on other policy statements.).
+
 Enabled if TTLSEnabled in the matching AT-TLS policy is set to ON (AT-TLS security is not active. Data is sent in the clear.).
+
 Appl Control if ApplicationControlled in the matching AT-TLS policy is set to ON (An application can control AT-TLS security. AT-TLS security is used only when requested by the application, using the SIOCTTLSCTL ioctl.).
 
 ```
@@ -1219,6 +1264,7 @@ https://www.ibm.com/docs/en/zos/2.5.0?topic=statements-ttlsrule-statement
 
 
 TTLSConfig  //'USER1.PAGENT.CONF(TTLS)'
+
 TTLSConfig  /u/user1/pagent.ttls
 
 ```
@@ -1323,6 +1369,7 @@ TTLSCipherParms                   cipher5~Default_PROC
 LASTACK for TLS ISSUES: LE issue
 
 Add to TCPIP PROC
+
 //CEEOPTS  DD *
 HEAP64(10M,10M)
 HEAPPOOLS64(ON,
@@ -1368,6 +1415,7 @@ gskkyman -h|-?
 
 
 GSKSRVR trace instruction
+
 ```
 1. S GSKSRVR 
 2. TRACE CT,WTRSTART=GSKWTR 
@@ -1393,14 +1441,21 @@ https://www.ibm.com/docs/en/zos/2.1.0?topic=information-capturing-trace-data-thr
 
 
 CSF:
+
 Crypto Card
 
 When you specify ICSF, you must have READ authority to the CSFIQF, CSFPKI, and CSFPKRC resources.
+
 When you specify FROMICSF, you must have READ authority to the CSFIQF and CSFPKX resources.
+
 When you specify SIGNWITH, you must have the following access authorities:
+
 If the private key of the signing certificate is an ECC key that is stored in the RACF data base, you must have READ authority to the CSF1PKS, CSF1PKV, CSF1TRC, CSF1TRD, and CSFOWH resources.
+
 If the private key of the signing certificate is stored in the ICSF PKA key data set (PKDS) or in the ICSF Token Data Set (TKDS), you require additional access based on the key type, as follows:
+
 When the key is an RSA type, you must have READ authority to the CSFDSG resource.
+
 When the key is an ECC type, you must have READ authority to the CSF1PKV, CSF1TRC, CSF1TRD, CSFDSG, and CSFOWH resources.
 
 https://www.ibm.com/docs/en/zos/2.1.0?topic=ssl-racf-csfserv-resource-requirements
@@ -1430,10 +1485,15 @@ D ICSF,OPT,SYSPLEX=YES
 CONSOLES:
 
 HMC - OSA ADVANCED FACILITIES
+
 PANEL
+
 SERVER - PUT SERVER IP AND SUBNET, PORT AND DEFAULT GATEWAY
+
 SESSION - DEFINE THEM USING LU
+
 VALIDATE
+
 ACTIVATE
 
 OPEN A SESSION TO THAT IP AND PORT
@@ -1451,6 +1511,7 @@ TN3270:
 Same but look for LOCICC / Local Terminal definition and Activate it.
 
 /dev/console
+
 /dev/operlog
 
 https://www.ibm.com/docs/en/zos/2.4.0?topic=files-system-console
@@ -1469,6 +1530,7 @@ CT TRACE:
 
 CT Writer PROC:
 
+
 //CTWTR PROC
 //IEFPROC  EXEC PGM=ITTTRCWR,REGION=5M,TIME=1440
 //TRCOUT01 DD DSNAME=yourdsn,
@@ -1480,8 +1542,11 @@ https://www.ibm.com/docs/en/ims/13.1.0?topic=commands-trace-ct-command
 https://www.ibm.com/docs/en/zos/2.1.0?topic=parameters-statementsparameters-ctncccxx
 
 WRAP
+
 Specifies that when the system reaches the end of the data set or group of data sets, it writes over the oldest data at the start of the data set or the start of the first data set in the group. The primary extents of the data set are used.
+
 NOWRAP
+
 Specifies that the system stops writing to the data set or data sets when they are full. The primary and secondary extents of the data sets are used.
 
 ```
@@ -2996,6 +3061,23 @@ FTP
 
 # Useful
 
+DFSMSHSM
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=information-displaying-volumes-using-display-sms-command
+
+https://www.ibm.com/docs/en/zos/3.1.0?topic=dfsmsdss-restoring-data-sets
+
+https://www.ibm.com/docs/en/zos/3.1.0?topic=administration-dfsmshsm-storage-reference
+
+https://www.ibm.com/docs/en/zos/3.1.0?topic=reference-dfsmshsm-commands
+
+https://www.ibm.com/docs/en/zos/3.1.0?topic=mcds-listing-information-from-bcds-in-tso
+
+https://ruifeio.com/2019/05/08/useful-dfsmshsm-user-commands-2/
+
+https://www.ibm.com/docs/en/zos/3.1.0?topic=management-data-set-recovery-restore
+
+
 ## XEQ
 
 ```
@@ -3278,6 +3360,8 @@ Use PCOMM Send File
 --------------------------------------------
 
 https://www.ibm.com/docs/en/zos/2.1.0?topic=command-displaying-device-status-allocation
+
+https://www.ibm.com/docs/en/zos/3.1.0?topic=command-displaying-system-configuration-information-m
 
 D U,VOL=VOLSER
 D U{[,deviceclass][,ONLINE ][,[/]devnum[,nnnnn]]                   }
