@@ -39,8 +39,11 @@ This document is meant to be a reference guide with advice related to investment
 Advancing in your career is a mix of the following:
 
 1- Making yourself as indispensable as you can, the fastest you can. Whether that being a technology gap that you cover (or can cover in the near future), building trust from your peers and managers, or just plain working on anything you can get your hands on, without losing a beat.
+
 2- Getting yourself out there, connecting with people (online and offline), lobbying is never a waste of time.
+
 3- Knowing the industry. This is a broad statement, as things change. Follow your favorite people, from the top ISVs and IBM, and make sure you try anything trending. 
+
 4- Constant learning. That's it, learn anything related to what you are currently doing, or would like to do.
 
 [INDEX](#index)
