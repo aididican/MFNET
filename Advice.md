@@ -20,9 +20,9 @@ This document is meant to be a reference guide with advice related to investment
 
 ## Investments
 
-[Tax Free](#taxfree)
+[Tax Free Account Types](#tax-free-account-types)
 
-[Taxed](#taxed)
+[Investment Types](#investment-types)
 
 ------------------------------
 ------------------------------
