@@ -643,6 +643,8 @@ D TCPIP,,N,STATS
 D TCPIP,,N,ROUTE,MAX=*
 D TCPIP,,OMPROUTE,OSPF,LIST,ALL
 D TCPIP,,OMPROUTE,RIP,LIST,ALL
+D TCPIP,,N,TTLS,CONN=connid
+D TCPIP,,N,CONN,CONNT=TTLSP
 ```
 
 TCPIP PROFILE CONFIG:
@@ -808,6 +810,12 @@ D TCPIP,,N,CONN,
 				SERVER
 				MAX=*
 		        CONNT=TTLSP	
+```
+
+NETSTAT TTLS to see TTLS connection parameters
+
+```
+D TCPIP,,N,TTLS,CONN=connid
 ```
 
 ---------------------------------------------------
@@ -3143,8 +3151,15 @@ x all
 f asssdsad all
 x '//*' all
 
+Cut:
+cut nx (cut non excluded)
+cut x (cut excluded)
+
 Command line on Top:
 ISPF - Main Panel - Option 0 - Command line on Bottom
+
+https://www.ibm.com/docs/en/zos/2.4.0?topic=commands-line-command-summary
+https://www.ibm.com/docs/en/zos/2.4.0?topic=statements-cutcut-save-lines
 
 --------------------------------------------
 
