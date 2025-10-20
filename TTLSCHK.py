@@ -63,7 +63,8 @@ def find_ttls_matches(filename):
     "TTLSGskAdvancedParms",
     "TTLSCipherParms",
     "TTLSSignatureParms",
-    "TTLSConnectionAdvancedParms"]
+    "TTLSConnectionAdvancedParms"
+    ]
 
 # List of All Parameters:
     parmlist=[
@@ -177,7 +178,25 @@ def find_ttls_matches(filename):
     "LocalPortRange",
     "RemotePortRange",
     "TTLSGskAdvancedParms",
-    "TTLSConnectionAdvancedParms"]
+    "TTLSConnectionAdvancedParms",
+    "Addr",
+    "IpAddrGroup",
+    "Prefix",
+    "GSK_SYSPLEX_SESSION_TICKET_CACHE",
+    "GSK_SYSPLEX_SIDCACHE",
+    "GSK_V2_SESSION_TIMEOUT",
+    "GSK_V2_SIDCACHE_SIZE",
+    "GSK_V3_SESSION_TIMEOUT",
+    "GSK_V3_SIDCACHE_SIZE",
+    "GSK_SESSION_TICKET_CLIENT_ENABLE",
+    "GSK_SESSION_TICKET_CLIENT_MAXCACHED",
+    "GSK_SESSION_TICKET_CLIENT_MAXSIZE",
+    "GSK_SESSION_TICKET_SERVER_ENABLE",
+    "GSK_SESSION_TICKET_SERVER_ALGORITHM",
+    "GSK_SESSION_TICKET_SERVER_COUNT",
+    "GSK_SESSION_TICKET_SERVER_KEY_REFRESH",
+    "GSK_SESSION_TICKET_SERVER_TIMEOUT",
+    ]
 
 # List of Acceptable Values for each Common Parameter:
     acceptable_values = {
@@ -200,26 +219,40 @@ def find_ttls_matches(filename):
     "TLSv1.3": {"On", "Off"}
 
 }
-
+    
 # Extract all names and references from each line to be processed:
     for line in lines:
         line = line.strip()
         parts = line.split()
         if len(parts) < 2:
             continue  
-        
+
         # Logic for the Extraction and Matching for values and parameters:
         key, value = parts[0], parts[1]
-        if key in acceptable_values:
-            if value not in acceptable_values[key]:
-                print(f"\nERROR on line {line}: Invalid {key} '{value}'")
-        if all(not line.startswith(parm) for parm in parmlist):
+        key_lower = key.lower()
+        value_lower = value.lower()
+
+        # Case-insensitive validation against acceptable values
+        for valid_key, valid_values in acceptable_values.items():
+            if key_lower == valid_key.lower():  
+                # Convert all acceptable values to lowercase for comparison
+                valid_values_lower = {v.lower() for v in valid_values}
+                if value_lower not in valid_values_lower:
+                    print(f"\nERROR on line: {line}\nInvalid {valid_key} '{value}'")
+                break  # Break to stop checking once the correct key is found
+
+        # Syntax validation (case-insensitive)
+        if all(not line.lower().startswith(parm.lower()) for parm in parmlist):
             print(f"\nSYNTAX ERRORS on line: {line}\n")
-        if any(line.startswith(ref) for ref in reflist):
+
+        # Value Extraction to compare with Reference List:
+        if any(line.lower().startswith(ref.lower()) for ref in reflist):
             parts = line.split()
             if len(parts) >= 2:
                 refs.add(parts[1])
-        if any(line.startswith(target) for target in targetlist):
+
+        # Value Extraction to compare with Target List:
+        if any(line.lower().startswith(target.lower()) for target in targetlist):
             parts = line.split()
             if len(parts) >= 2:
                 actions.add(parts[1])
@@ -232,15 +265,15 @@ def find_ttls_matches(filename):
     # Output for each Compare Action
     print("=== Matches ===")
     for name in sorted(matched):
-        print(f"✓ {name}")
+        print(f"{name}")
 
     print("\n=== Missing Actions (referenced but not defined) ===")
     for name in sorted(missing_actions):
-        print(f"✗ {name}")
+        print(f"{name}")
 
     print("\n=== Unused Actions (defined but not referenced) ===")
     for name in sorted(unused_actions):
-        print(f"⚠ {name}")
+        print(f"{name}")
 
 # Filename Input
 if __name__ == "__main__":
