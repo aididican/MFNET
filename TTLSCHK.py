@@ -180,6 +180,8 @@ def find_ttls_matches(filename):
     "TTLSGskAdvancedParms",
     "TTLSConnectionAdvancedParms",
     "Addr",
+    "IpAddr",
+    "IpAddrSet",
     "IpAddrGroup",
     "Prefix",
     "GSK_SYSPLEX_SESSION_TICKET_CACHE",
