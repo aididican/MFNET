@@ -6,6 +6,8 @@
 #
 # Created and Published by Sebastian Guerra
 #
+# November 2nd 2025 - Updated code to accept values to address reported Issue #1 "TTLSCHK: Incorrectly flagged syntax errors".
+# November 2nd 2025 - New functionalities added to only accept strings from the TTLS configuration file definition parameters acceptable values.
 
 def find_ttls_matches(filename):
     with open(filename, 'r') as f:
@@ -255,6 +257,7 @@ def find_ttls_matches(filename):
 
 # List of Acceptable Values for each Common Parameter:
     acceptable_values = {
+    "HttpCdpEnable": {"On", "Off"},  
     "Direction": {"Inbound", "Outbound", "Both"},
     "SyslogFacility": {"daemon", "auth"},
     "ApplicationControlled": {"On", "Off"},
@@ -290,7 +293,6 @@ def find_ttls_matches(filename):
     "GSK_SESSION_TICKET_CLIENT_ENABLE": {"On", "Off"},
     "GSK_SESSION_TICKET_SERVER_ENABLE": {"On", "Off"},
     "ClientAuthType": {"PassThru", "Full","Required","SAFCheck"},
-    "ClientEDHGroupSize": {"Legacy", "2048"},
     "ClientExtendedMasterSecret": {"On", "Off","Required"},
     "ClientHandshakeSNI": {"Required", "Off","Optional"},
     "ClientMaxSSLFragment": {"Required", "Off","Optional"},
@@ -307,8 +309,8 @@ def find_ttls_matches(filename):
     "TLSv1": {"On", "Off"},
     "TLSv1.1": {"On", "Off"},
     "TLSv1.2": {"On", "Off"},
-    "TLSv1.3": {"On", "Off"}
-
+    "TLSv1.3": {"On", "Off"},
+    "ClientMaxSSLFragmentLength": {"512", "1024", "2048", "4096"}
 }
     
 # Extract all names and references from each line to be processed:
